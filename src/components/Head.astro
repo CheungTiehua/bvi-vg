@@ -9,7 +9,7 @@ export interface Props {
 
 const {
   title,
-  description = 'BVI 英属维尔京群岛离岸工具全方位中文指南 —— 家族办公室策略平台',
+  description = '系统了解 BVI 商业公司、VISTA 信托、私人信托公司、经济实质、受益所有权与跨境架构应用。独立中文知识站。',
   image = '/images/og-default.png',
   canonicalURL,
   noindex = false,
@@ -20,7 +20,7 @@ const {
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{title}</title>
 <meta name="description" content={description} />
-<link rel="canonical" href={canonicalURL || Astro.url.href} />
+<link rel="canonical" href={canonicalURL || new URL(Astro.url.pathname, Astro.site).href} />
 
 {noindex && <meta name="robots" content="noindex, follow" />}
 

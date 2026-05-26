@@ -18,7 +18,7 @@ export default defineConfig({
       filter: (page) => !page.includes('/search/'),
     }),
     robotsTxt({
-      sitemap: true,
+      sitemap: false,
     }),
   ],
 
