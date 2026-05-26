@@ -2,7 +2,7 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="监管动态追踪 | BVI.vg" description="BVI 及国际监管政策变化追踪，涵盖经济实质、CRS、UBO 登记、制裁合规等最新动态与影响分析。">
+<BaseLayout title="监管动态追踪 | BVI.vg" description="BVI 及国际监管政策变化追踪，涵盖经济实质、CRS、UBO 登记、制裁合规等最新动态与影响分析。最后更新：2026年5月。">
   <div class="max-w-(--content-max-width) mx-auto px-6 py-10">
     <nav aria-label="面包屑" class="mb-6">
       <ol class="flex items-center gap-1.5 text-sm font-sans text-text-muted">
@@ -15,45 +15,59 @@ import BaseLayout from '@layouts/BaseLayout.astro';
     <article class="prose">
       <span class="inline-block px-3 py-1 rounded-full text-xs font-sans font-medium bg-accent/10 text-accent mb-4">动态追踪</span>
       <h1>监管动态追踪</h1>
-      <p class="text-lg text-text-muted">BVI 及国际监管政策、法规更新、重要法院判决的追踪与分析。</p>
+
+      <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6 text-sm">
+        <p class="font-sans font-semibold mb-2">当前状态摘要（截至 2026 年 5 月）</p>
+        <p>BVI 目前<strong>不在</strong> EU Annex I（非合作税务司法管辖区名单）中，但在 Annex II，即"合作但仍有待履行承诺"（cooperate with the EU and have pending commitments）的司法管辖区名单。<a href="https://www.consilium.europa.eu/en/policies/eu-list-of-non-cooperative-jurisdictions/" target="_blank" rel="noopener noreferrer" class="text-primary underline">EU Council 官方名单</a></p>
+      </div>
 
       <h2>最新动态</h2>
 
       <div class="border-l-2 border-secondary pl-4 my-6">
-        <time class="text-sm text-text-muted" datetime="2026-01-15">2026 年 1 月</time>
-        <h3 class="!text-lg !mt-0 !mb-1">BVI 商业公司法修正案生效</h3>
-        <p>BVI《商业公司法》最新修正案正式生效，主要涉及：董事名册的电子化提交要求、最终受益人信息的年度更新义务强化。所有 BC 和 SPC 须在 2026 年 6 月 30 日前完成首次电子申报。</p>
+        <time class="text-sm text-text-muted" datetime="2026-01">2026 年 1 月</time>
+        <h3 class="!text-lg !mt-0 !mb-1">CRS 2.0 正式生效</h3>
+        <p>OECD 制定的通用报告标准 2.0（Common Reporting Standard 2.0）自 2026 年 1 月 1 日起在 BVI 正式生效。BVI 政府公告要求金融机构在 2026 年期间按新标准收集信息，并于 <strong>2027 年 5 月前</strong>向 BVI 国际税务管理局（ITA）提交首批 CRS 2.0 报告。<a href="https://gov.vg/news/financial-institutions-prepare-common-reporting-standards-20-requirements" target="_blank" rel="noopener noreferrer" class="text-primary underline">BVI Government 公告</a></p>
       </div>
 
       <div class="border-l-2 border-secondary pl-4 my-6">
-        <time class="text-sm text-text-muted" datetime="2025-08-01">2025 年 8 月</time>
-        <h3 class="!text-lg !mt-0 !mb-1">欧盟将 BVI 移出"灰名单"</h3>
-        <p>欧盟理事会正式将 BVI 从"税务不合作司法管辖区灰名单"中移出。此前 BVI 因经济实质法的执行问题被列入灰名单，2024 年以来 BVI 政府采取了一系列补救措施，包括加强 ITA 的审核力度和提高违规罚款。</p>
+        <time class="text-sm text-text-muted" datetime="2026-01">2026 年 1 月</time>
+        <h3 class="!text-lg !mt-0 !mb-1">BVI 最终受益人申报规则更新</h3>
+        <p>BVI 金融服务委员会（FSC）修订了最终受益人（Beneficial Ownership）申报指引。根据 FSC 2026 年 1 月修订版 BO 指引：新设实体须在设立/注册/迁册后 <strong>30 天内</strong>完成 BO 申报；既有实体须在 <strong>2026 年 1 月 2 日前</strong>完成申报；变更后须在 <strong>30 天内</strong>更新信息。<a href="https://www.bvifsc.vg/" target="_blank" rel="noopener noreferrer" class="text-primary underline">BVI FSC</a></p>
       </div>
 
       <div class="border-l-2 border-secondary pl-4 my-6">
-        <time class="text-sm text-text-muted" datetime="2025-03-01">2025 年 3 月</time>
-        <h3 class="!text-lg !mt-0 !mb-1">CRS 申报数据升级至 2.0 标准</h3>
-        <p>BVI 税务信息管理局（ITA）升级了 CRS 申报系统，采用 OECD 最新 2.0 数据标准。金融机构须按照新标准提交 2024 年度 CRS 报告。新标准增加了对信托受益人的穿透识别要求。</p>
+        <time class="text-sm text-text-muted" datetime="2024-10">2024 年 10 月</time>
+        <h3 class="!text-lg !mt-0 !mb-1">BVI 法院确认 SPC 资产隔离边界</h3>
+        <p>BVI 高等法院在一起判决中（BVIHC(COM) 2024/0156），确认了 SPC 独立投资组合之间资产隔离的效力。法院同时指出，外部合同中的管辖权和适用法律条款对于隔离效力的跨国承认可能产生实质性影响。</p>
       </div>
 
       <div class="border-l-2 border-secondary pl-4 my-6">
-        <time class="text-sm text-text-muted" datetime="2024-10-01">2024 年 10 月</time>
-        <h3 class="!text-lg !mt-0 !mb-1">BVI 法院确认 SPC 资产隔离的边界</h3>
-        <p>BVI 高等法院在一起具有里程碑意义的判决中（BVIHC(COM) 2024/0156），确认了 SPC 独立投资组合之间资产隔离的效力。法院同时指出，外部合同中的管辖权和适用法律条款对于隔离效力的跨国承认可能产生实质性影响。</p>
+        <time class="text-sm text-text-muted" datetime="2023-10">2023 年 10 月</time>
+        <h3 class="!text-lg !mt-0 !mb-1">EU 将 BVI 从 Annex I 移至 Annex II</h3>
+        <p>2023 年 10 月，欧盟理事会更新了税务非合作司法管辖区名单。BVI 从 Annex I（非合作名单）移至 Annex II（合作但有待履行承诺），此前 BVI 因经济实质法的执行问题曾被列入 Annex I。<a href="https://www.consilium.europa.eu/en/policies/eu-list-of-non-cooperative-jurisdictions/timeline-eu-list-of-non-cooperative-jurisdictions/" target="_blank" rel="noopener noreferrer" class="text-primary underline">EU Council 时间线</a></p>
       </div>
 
       <h2>持续关注领域</h2>
       <ul>
+        <li><strong>EU 名单动态监测</strong>：EU Council 持续监测合作进展，最近一次修订为 2026 年 2 月，下一次修订预计 2026 年 10 月。<a href="https://www.consilium.europa.eu/en/policies/eu-list-of-non-cooperative-jurisdictions/" target="_blank" rel="noopener noreferrer" class="text-primary underline">EU Council</a></li>
         <li><strong>OECD 全球最低税率（支柱二）</strong>：15% 全球最低税率可能对 BVI 公司的全球架构产生影响</li>
         <li><strong>英国海外领土的实益所有权公开登记</strong>：英国持续推动其海外领土（含 BVI）公开 UBO 登记信息</li>
         <li><strong>中国经济实质穿透</strong>：中国税务机关对 BVI 架构的"实际管理机构"认定标准趋严</li>
       </ul>
+
+      <h2>资料来源</h2>
+      <ul>
+        <li><a href="https://www.consilium.europa.eu/en/policies/eu-list-of-non-cooperative-jurisdictions/" target="_blank" rel="noopener noreferrer">EU Council — EU list of non-cooperative jurisdictions</a></li>
+        <li><a href="https://www.consilium.europa.eu/en/policies/eu-list-of-non-cooperative-jurisdictions/timeline-eu-list-of-non-cooperative-jurisdictions/" target="_blank" rel="noopener noreferrer">EU Council — Timeline</a></li>
+        <li><a href="https://www.bvifsc.vg/" target="_blank" rel="noopener noreferrer">BVI Financial Services Commission (FSC)</a></li>
+        <li><a href="https://bviita.vg/" target="_blank" rel="noopener noreferrer">BVI International Tax Authority (ITA)</a></li>
+        <li><a href="https://gov.vg/news/financial-institutions-prepare-common-reporting-standards-20-requirements" target="_blank" rel="noopener noreferrer">BVI Government — CRS 2.0 公告</a></li>
+      </ul>
     </article>
 
     <aside class="mt-12 p-5 rounded-lg bg-bg-muted border border-border-main text-sm text-text-muted" role="note">
-      <p class="font-sans font-semibold text-text-main mb-2">免责声明</p>
-      <p>本网站所载内容仅供信息参考之用，不构成法律、税务或投资建议。BVI 法律及国际监管规则可能发生变化，读者在做出任何决策前应咨询具备相应资质的专业顾问。</p>
+      <p class="font-sans font-semibold text-text-main mb-2">重要声明</p>
+      <p>本页面内容基于公开官方来源整理。BVI 法律及国际监管规则可能发生变化，具体合规义务请咨询持牌专业顾问。最后更新：2026 年 5 月。</p>
     </aside>
   </div>
 </BaseLayout>
