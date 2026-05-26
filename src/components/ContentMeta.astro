@@ -1,0 +1,34 @@
+---
+interface Props {
+  pubDate: Date;
+  updatedDate?: Date;
+  reviewer?: string;
+  references?: string[];
+}
+
+const { pubDate, updatedDate, reviewer, references } = Astro.props;
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('zh-CN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+---
+
+<div class="mt-16 border-t border-border-light pt-6 space-y-2 text-xs text-text-muted font-sans">
+  <p>首次发布：{formatDate(pubDate)}
+    {updatedDate && <> · 最近更新：{formatDate(updatedDate)}</>}
+  </p>
+  {references && references.length > 0 && (
+    <details>
+      <summary class="cursor-pointer hover:text-text-main transition-colors">参考文献与出处</summary>
+      <ul class="mt-2 pl-4 space-y-1">
+        {references.map((ref) => (
+          <li>{ref}</li>
+        ))}
+      </ul>
+    </details>
+  )}
+</div>

@@ -5,6 +5,7 @@ import ArticleHeader from '@components/ArticleHeader.astro';
 import TableOfContents from '@components/TableOfContents.astro';
 import RelatedPosts from '@components/RelatedPosts.astro';
 import Disclaimer from '@components/Disclaimer.astro';
+import ContentMeta from '@components/ContentMeta.astro';
 import StructuredData from '@components/StructuredData.astro';
 import { TOPIC_LABELS } from '@lib/constants';
 import type { TopicSlug } from '@lib/types';
@@ -77,6 +78,10 @@ const fullTitle = `${title} | BVI.vg`;
         </div>
 
         <Disclaimer />
+        <ContentMeta
+          pubDate={pubDate}
+          updatedDate={updatedDate}
+        />
         <RelatedPosts currentSlug={currentSlug} category={category} tags={tags} />
       </div>
 
