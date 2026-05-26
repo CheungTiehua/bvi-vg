@@ -1,0 +1,27 @@
+---
+interface QA {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  questions: QA[];
+}
+
+const { questions } = Astro.props;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: questions.map((qa) => ({
+    '@type': 'Question',
+    name: qa.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: qa.answer.replace(/<[^>]*>/g, '').substring(0, 300),
+    },
+  })),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

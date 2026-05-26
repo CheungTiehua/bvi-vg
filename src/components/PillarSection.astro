@@ -1,0 +1,27 @@
+---
+// Reusable sections for pillar articles
+export type SectionType = 'suitable' | 'not-suitable' | 'compliance' | 'misconceptions' | 'sources';
+
+export interface Props {
+  type: SectionType;
+  title?: string;
+}
+
+const configs: Record<SectionType, { title: string; icon: string; bg: string }> = {
+  'suitable': { title: '适用场景', icon: '✓', bg: 'bg-green-50 border-green-200' },
+  'not-suitable': { title: '不适用场景', icon: '✗', bg: 'bg-red-50 border-red-200' },
+  'compliance': { title: '合规注意事项', icon: '⚖', bg: 'bg-amber-50 border-amber-200' },
+  'misconceptions': { title: '常见误区', icon: '⚠', bg: 'bg-blue-50 border-blue-200' },
+  'sources': { title: '资料来源', icon: '📚', bg: 'bg-gray-50 border-gray-200' },
+};
+
+const config = configs[type];
+const heading = title || config.title;
+---
+
+<div class={`my-6 p-5 rounded-lg border ${config.bg} not-prose`}>
+  <p class="font-sans font-semibold text-sm text-text-main mb-2">{config.icon} {heading}</p>
+  <div class="text-sm space-y-1 text-text-main">
+    <slot />
+  </div>
+</div>

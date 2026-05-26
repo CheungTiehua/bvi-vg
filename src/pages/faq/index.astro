@@ -1,0 +1,43 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import FAQStructuredData from '@components/FAQStructuredData.astro';
+
+const faqs = [
+  { q: 'BVI 公司是什么？', a: 'BVI 商业公司（Business Company）是依据 BVI《商业公司法》注册成立的有限责任公司，是最广泛使用的离岸公司形态之一。具有独立法人资格，股东责任以持股为限，BVI 不对其征收企业所得税。' },
+  { q: 'BVI 公司需要审计吗？', a: 'BVI 法律对大多数商业公司没有强制审计要求。但公司须保存充分的会计记录，保存期限不少于 5 年。某些受监管实体（如基金）可能有额外审计要求。' },
+  { q: 'BVI 公司还保密吗？', a: 'BVI 股东和董事信息不向公众公开披露，但须在注册代理人处保存，供执法部门依法查阅。此外，CRS/FATCA 框架下有信息交换义务，最终受益人信息须通过 BOSS 系统申报。隐私保护不等于信息完全不可追踪。' },
+  { q: 'BVI 公司一定要满足经济实质要求吗？', a: '不是所有 BVI 公司都需要。只有从事"相关活动"的实体才需要。纯控股公司（仅持有股权、收取股息）适用简化要求，通常通过注册代理人即可满足。如不从事相关活动，仅需做年度经济实质申报说明。' },
+  { q: 'BVI 公司能不能开银行账户？', a: '可以，但每家银行有自己的 KYC 和尽调政策。常见的开户地点包括香港、新加坡、瑞士。开户时银行通常会要求提供公司文件、业务说明、资金来源证明和最终受益人信息。' },
+  { q: 'BVI 公司注册需要多久？', a: '标准流程约 3-10 个工作日（含名称预查、文件准备和政府审核）。加急服务可在 1-2 个工作日内取得公司注册证书。' },
+  { q: 'VISTA 信托和普通信托有什么区别？', a: '核心区别在于受托人的角色。VISTA 信托中受托人不干预公司经营管理，委托人通过"指定人"角色保留董事任免权。普通信托中受托人有义务主动管理和监控信托财产，可能介入公司运营。VISTA 信托仅适用于 BVI 公司股权。' },
+  { q: 'PTC 是否需要持牌？', a: 'BVI 私人信托公司（PTC）不需要获得信托业务牌照，但须在 BVI FSC 注册。核心限制：PTC 不得向公众招揽信托业务，只能为特定家族或关联方提供受托人服务。' },
+  { q: 'BVI SPC 的资产隔离可靠吗？', a: '在 BVI 法律框架内，SPC 独立投资组合之间的资产隔离受法律明确保护。但跨国场景中，外国法院未必自动承认这一隔离效力。保证隔离有效的前提是严格会计分离、合同明确标注、避免资金混同。' },
+  { q: 'BVI 公司维护一年要花多少钱？', a: '取决于公司类型。BC 年度维护费约 $1,750-$6,600；SPC 约 $3,250-$10,500；VISTA 信托（含受托人年费）约 $6,500-$18,000；PTC 约 $28,000-$103,000。以上为市场参考范围，不构成报价。' },
+  { q: 'BVI 公司会被欧盟列入黑名单吗？', a: '截至 2026 年 2 月，BVI 不在 EU Annex I（非合作司法管辖区名单）中，但在 Annex II（合作但有待履行承诺）。BVI 政府持续与 EU 合作推进合规改革。' },
+  { q: '什么是最终受益人（UBO）？', a: '最终受益人（Ultimate Beneficial Owner）指直接或间接持有公司 10% 以上股份或投票权的自然人，或以其他方式实际控制公司的自然人。BVI 公司须识别 UBO 并通过 BOSS 系统保存相关信息。' },
+];
+
+const faqData = faqs.map((f) => ({ question: f.q, answer: f.a }));
+---
+
+<BaseLayout title="BVI 常见问题 FAQ | BVI.vg" description="BVI 公司、信托、SPC、VISTA、PTC 常见问题解答——BVI公司是什么、需要审计吗、还能保密吗、经济实质要求、开户、费用等。">
+  <FAQStructuredData questions={faqData} />
+  <div class="max-w-(--content-max-width) mx-auto px-6 py-10">
+    <article class="prose">
+      <h1>常见问题</h1>
+      <p class="text-lg text-text-muted">关于 BVI 公司、信托、合规与费用的常见问题，按主题整理。</p>
+
+      {faqs.map((faq, i) => (
+        <div class="not-prose border-b border-border-light py-5 last:border-0">
+          <h2 class="!text-base font-sans font-semibold text-text-main !mt-0 !mb-2">{i + 1}. {faq.q}</h2>
+          <p class="text-sm text-text-muted !mt-0">{faq.a}</p>
+        </div>
+      ))}
+    </article>
+
+    <div class="mt-10 p-5 rounded-lg bg-bg-muted border border-border-main text-sm text-text-muted">
+      <p class="font-sans font-semibold text-text-main mb-2">更多问题？</p>
+      <p>以上为常见问题的简要回答。各专题还设有独立的 FAQ 页面：<a href="/spc/faq/" class="text-primary underline">SPC FAQ</a> · <a href="/bc/faq/" class="text-primary underline">BC FAQ</a> · <a href="/vista/faq/" class="text-primary underline">VISTA FAQ</a> · <a href="/ptc/faq/" class="text-primary underline">PTC FAQ</a></p>
+    </div>
+  </div>
+</BaseLayout>
