@@ -1,0 +1,15 @@
+---
+export interface Props {
+  type: 'WebSite' | 'Article' | 'BreadcrumbList' | 'FAQPage';
+  data: Record<string, any>;
+}
+
+const { type, data } = Astro.props;
+
+const getSchema = (): string => {
+  const base = { '@context': 'https://schema.org', '@type': type };
+  return JSON.stringify({ ...base, ...data });
+};
+---
+
+<script type="application/ld+json" set:html={getSchema()} />

@@ -1,0 +1,46 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import Card from '@components/Card.astro';
+import type { TopicSlug } from '@lib/types';
+
+interface Props {
+  title: string;
+  description: string;
+  category: TopicSlug;
+  subpages: Array<{
+    slug: string;
+    title: string;
+    description: string;
+    icon?: string;
+  }>;
+}
+
+const { title, description, category, subpages } = Astro.props;
+const fullTitle = `${title} | BVI.vg`;
+---
+
+<BaseLayout title={fullTitle} description={description}>
+  <div class="max-w-(--page-max-width) mx-auto px-6 py-10">
+    <Breadcrumbs category={category} />
+    <div class="max-w-3xl">
+      <h1 class="font-sans text-3xl font-bold text-primary mb-4">{title}</h1>
+      <p class="text-lg text-text-muted mb-10">{description}</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {subpages.map((page) => (
+        <Card
+          title={page.title}
+          description={page.description}
+          href={`/${category}/${page.slug}/`}
+          icon={page.icon}
+        />
+      ))}
+    </div>
+
+    <div class="mt-12 prose max-w-3xl">
+      <slot />
+    </div>
+  </div>
+</BaseLayout>

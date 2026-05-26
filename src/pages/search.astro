@@ -1,0 +1,59 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="搜索 | BVI.vg" noindex={true}>
+  <div class="max-w-2xl mx-auto px-6 py-16">
+    <h1 class="font-sans text-3xl font-bold text-primary mb-8 text-center">搜索</h1>
+    <div id="search" class="pagefind-search"></div>
+    <div id="results" class="mt-8"></div>
+  </div>
+</BaseLayout>
+
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+
+<script is:inline>
+  (async function() {
+    try {
+      const pagefind = await import("/pagefind/pagefind.js");
+      await pagefind.init();
+      const search = new pagefind.PagefindSearch();
+
+      const container = document.getElementById("search");
+      const results = document.getElementById("results");
+
+      const input = document.createElement("input");
+      input.type = "text";
+      input.placeholder = "输入关键词搜索...";
+      input.className = "w-full px-5 py-3.5 text-lg rounded-xl border border-border-main focus:border-secondary focus:ring-2 focus:ring-secondary/20 outline-hidden font-sans bg-bg-elevated";
+
+      const form = document.createElement("form");
+      form.className = "relative";
+      form.appendChild(input);
+      container.appendChild(form);
+
+      form.addEventListener("submit", async function(e) {
+        e.preventDefault();
+        const query = input.value.trim();
+        if (!query) return;
+
+        results.innerHTML = '<p class="text-center text-text-muted py-8">搜索中...</p>';
+
+        const { results: items } = await search.search(query);
+        if (!items || items.length === 0) {
+          results.innerHTML = '<p class="text-center text-text-muted py-8">未找到相关结果。</p>';
+          return;
+        }
+
+        results.innerHTML = items.map(function(r) {
+          return '<a href="' + r.url + '" class="block p-4 rounded-lg border border-border-main hover:border-secondary hover:shadow-md transition-all mb-3">' +
+            '<h3 class="font-sans font-semibold text-base mb-1">' + (r.meta?.title || r.url) + '</h3>' +
+            '<p class="text-sm text-text-muted">' + (r.excerpt || '') + '</p>' +
+            '</a>';
+        }).join('');
+      });
+    } catch(e) {
+      document.getElementById("results").innerHTML = '<p class="text-center text-text-muted py-8">搜索功能暂不可用（需构建后索引）。</p>';
+    }
+  })();
+</script>

@@ -1,0 +1,42 @@
+---
+import { SITE_TITLE } from '@lib/constants';
+---
+
+<footer class="bg-primary text-white mt-20 border-t border-primary-light">
+  <div class="max-w-(--page-max-width) mx-auto px-6 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <!-- Brand -->
+      <div>
+        <p class="font-sans font-bold text-lg text-secondary mb-3">{SITE_TITLE}</p>
+        <p class="text-sm text-gray-300 leading-relaxed">
+          BVI 英属维尔京群岛离岸工具全方位中文指南。<br />家族办公室策略平台。
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4 class="font-sans font-semibold text-sm uppercase tracking-wider text-gray-400 mb-4">核心专题</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/spc/" class="text-gray-300 hover:text-secondary transition-colors">独立投资组合公司（SPC）</a></li>
+          <li><a href="/bc/" class="text-gray-300 hover:text-secondary transition-colors">BVI 商业公司（BC）</a></li>
+          <li><a href="/vista/" class="text-gray-300 hover:text-secondary transition-colors">VISTA 信托</a></li>
+          <li><a href="/ptc/" class="text-gray-300 hover:text-secondary transition-colors">私人信托公司（PTC）</a></li>
+        </ul>
+      </div>
+
+      <!-- Info -->
+      <div>
+        <h4 class="font-sans font-semibold text-sm uppercase tracking-wider text-gray-400 mb-4">信息</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/about/" class="text-gray-300 hover:text-secondary transition-colors">关于本站</a></li>
+          <li><a href="/disclaimer/" class="text-gray-300 hover:text-secondary transition-colors">免责声明</a></li>
+          <li><a href="/search/" class="text-gray-300 hover:text-secondary transition-colors">搜索</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-primary-light mt-10 pt-6 text-center text-sm text-gray-400">
+      <p>&copy; {new Date().getFullYear()} {SITE_TITLE}。本网站内容仅供信息参考，不构成法律、税务或投资建议。</p>
+    </div>
+  </div>
+</footer>

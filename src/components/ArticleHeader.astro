@@ -1,0 +1,44 @@
+---
+import { TOPIC_LABELS } from '@lib/constants';
+import type { TopicSlug } from '@lib/types';
+
+interface Props {
+  title: string;
+  category: TopicSlug;
+  pubDate: Date;
+  updatedDate?: Date;
+  tags?: string[];
+  readingTime?: number;
+}
+
+const { title, category, pubDate, updatedDate, tags, readingTime } = Astro.props;
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('zh-CN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+---
+
+<header class="mb-10">
+  <span class="inline-block px-3 py-1 rounded-full text-xs font-sans font-medium bg-primary/10 text-primary mb-4">
+    {TOPIC_LABELS[category]}
+  </span>
+  <h1 class="font-sans text-3xl font-bold text-primary mb-4">{title}</h1>
+  <div class="flex flex-wrap items-center gap-4 text-sm text-text-muted font-sans">
+    <time datetime={pubDate.toISOString()}>发布于 {formatDate(pubDate)}</time>
+    {updatedDate && (
+      <time datetime={updatedDate.toISOString()}>· 更新于 {formatDate(updatedDate)}</time>
+    )}
+    {readingTime && <span>· 阅读约 {readingTime} 分钟</span>}
+  </div>
+  {tags && tags.length > 0 && (
+    <div class="flex flex-wrap gap-2 mt-4">
+      {tags.map((tag) => (
+        <span class="inline-block px-2.5 py-0.5 rounded text-xs font-sans bg-bg-muted text-text-muted border border-border-light">{tag}</span>
+      ))}
+    </div>
+  )}
+</header>

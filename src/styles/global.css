@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+/* ---- Fonts ---- */
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+@import "@fontsource/lora/400.css";
+@import "@fontsource/lora/400-italic.css";
+@import "@fontsource/lora/700.css";
+
+/* ---- Design Tokens (non-Tailwind) ---- */
+@import "./design-tokens.css";
+
+/* ---- Tailwind v4 Theme ---- */
+@theme {
+  --color-primary: #0A1C3A;
+  --color-primary-light: #132D5E;
+  --color-primary-dark: #061228;
+  --color-secondary: #C6A43F;
+  --color-secondary-light: #D4B860;
+  --color-secondary-dark: #A8882E;
+  --color-accent: #6B1D2F;
+  --color-accent-light: #8A2540;
+  --color-accent-dark: #4A1420;
+  --color-bg: #FFFFFF;
+  --color-bg-muted: #F5F6F8;
+  --color-bg-elevated: #FFFFFF;
+  --color-text-main: #1A1A1A;
+  --color-text-muted: #5A5A5A;
+  --color-border-main: #E2E4E8;
+  --color-border-light: #EEF0F2;
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Lora', Georgia, serif;
+  --font-mono: 'Fira Code', 'Cascadia Code', monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+}
+
+/* ---- Base Styles ---- */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text);
+  background: var(--color-bg);
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+/* ---- Prose ---- */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  color: var(--color-primary);
+  scroll-margin-top: calc(var(--nav-height) + 1rem);
+}
+
+.prose h2 {
+  font-size: var(--text-2xl);
+  margin-top: 2.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose h3 {
+  font-size: var(--text-xl);
+  margin-top: 2em;
+  margin-bottom: 0.4em;
+}
+
+.prose p {
+  margin-bottom: 1.5em;
+}
+
+.prose ul,
+.prose ol {
+  margin-bottom: 1.5em;
+  padding-left: 1.5em;
+}
+
+.prose li {
+  margin-bottom: 0.25em;
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--color-secondary);
+  padding: 1em 1.5em;
+  margin: 1.5em 0;
+  background: var(--color-bg-muted);
+  font-style: italic;
+}
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--color-bg-muted);
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+  border: 1px solid var(--color-border-light);
+}
+
+.prose pre {
+  margin: 1.5em 0;
+  padding: 1.25em 1.5em;
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+}
+
+.prose pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: var(--text-sm);
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font-size: var(--text-sm);
+}
+
+.prose thead th {
+  background: var(--color-bg-muted);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75em 1em;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.prose tbody td {
+  padding: 0.75em 1em;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.prose tbody tr:hover {
+  background: var(--color-bg-muted);
+}
+
+.prose tbody tr:nth-child(even) {
+  background: var(--color-bg-muted);
+}
+
+.prose tbody tr:nth-child(even):hover {
+  background: var(--color-border-light);
+}
+
+.prose a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose a:hover {
+  color: var(--color-primary-light);
+}
+
+.prose strong {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* ---- Dark mode prose overrides ---- */
+[data-theme='dark'] .prose h1,
+[data-theme='dark'] .prose h2,
+[data-theme='dark'] .prose h3,
+[data-theme='dark'] .prose h4 {
+  color: var(--color-secondary-light);
+}
+
+[data-theme='dark'] .prose a {
+  color: var(--color-secondary-light);
+}
+
+[data-theme='dark'] .prose a:hover {
+  color: var(--color-secondary);
+}
+
+/* ---- Focus ring ---- */
+:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

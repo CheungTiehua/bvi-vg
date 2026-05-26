@@ -1,0 +1,49 @@
+---
+import { getCollection, render } from 'astro:content';
+import { TOPICS, TOPIC_LABELS } from '@lib/constants';
+import TopicHubLayout from '@layouts/TopicHubLayout.astro';
+
+export function getStaticPaths() {
+  return TOPICS.map((topic) => ({ params: { topic } }));
+}
+
+const { topic } = Astro.params;
+const topicKey = topic as string;
+
+if (!(TOPICS as readonly string[]).includes(topicKey)) {
+  return new Response('Not Found', { status: 404 });
+}
+
+const entries = await getCollection('topics', ({ data, id }) =>
+  data.category === topicKey && !data.draft && !id.endsWith('overview')
+);
+
+// Find overview content if it exists
+const overviewEntry = await getCollection('topics', ({ data, id }) =>
+  data.category === topicKey && id.endsWith('overview')
+).then((items) => items[0] || null);
+
+let OverviewContent = null;
+if (overviewEntry) {
+  const rendered = await render(overviewEntry);
+  OverviewContent = rendered.Content;
+}
+
+const subpages = entries.map((e) => {
+  const slug = e.id.split('/').pop()?.replace(/\.mdx?$/, '') || '';
+  return {
+    slug,
+    title: e.data.title,
+    description: e.data.description,
+  };
+});
+---
+
+<TopicHubLayout
+  title={TOPIC_LABELS[topicKey]}
+  description={`深入了解${TOPIC_LABELS[topicKey]}的定义、设立流程、合规要求及常见问题。`}
+  category={topicKey}
+  subpages={subpages}
+>
+  {OverviewContent && <OverviewContent />}
+</TopicHubLayout>

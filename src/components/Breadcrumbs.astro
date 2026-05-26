@@ -1,0 +1,37 @@
+---
+import { TOPIC_SHORT } from '@lib/constants';
+import type { TopicSlug } from '@lib/types';
+
+interface Props {
+  category?: TopicSlug;
+  title?: string;
+}
+
+const { category, title } = Astro.props;
+---
+
+<nav aria-label="面包屑" class="mb-6">
+  <ol class="flex items-center gap-1.5 text-sm font-sans text-text-muted">
+    <li>
+      <a href="/" class="hover:text-primary transition-colors">首页</a>
+    </li>
+    {category && (
+      <>
+        <li aria-hidden="true">
+          <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </li>
+        <li>
+          <a href={`/${category}/`} class="hover:text-primary transition-colors">{TOPIC_SHORT[category]}</a>
+        </li>
+      </>
+    )}
+    {title && (
+      <>
+        <li aria-hidden="true">
+          <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </li>
+        <li class="text-text-main truncate max-w-48">{title}</li>
+      </>
+    )}
+  </ol>
+</nav>

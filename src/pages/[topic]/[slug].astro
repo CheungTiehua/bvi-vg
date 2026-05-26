@@ -1,0 +1,41 @@
+---
+import { getCollection, render } from 'astro:content';
+import DocLayout from '@layouts/DocLayout.astro';
+
+export async function getStaticPaths() {
+  const topics = await getCollection('topics', ({ data, id }) => {
+    if (data.draft) return false;
+    const slug = id.split('/').pop() || '';
+    return !slug.startsWith('overview');
+  });
+
+  return topics.map((entry) => {
+    const parts = entry.id.split('/');
+    const category = parts[0];
+    const fileName = parts[parts.length - 1];
+    const slug = fileName.replace(/\.mdx?$/, '');
+
+    return {
+      params: { topic: category, slug },
+      props: { entry },
+    };
+  });
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<DocLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  category={entry.data.category as any}
+  pubDate={entry.data.pubDate}
+  updatedDate={entry.data.updatedDate as Date | undefined}
+  tags={entry.data.tags}
+  readingTime={0}
+  currentSlug={entry.id}
+  noindex={entry.data.draft}
+>
+  <Content />
+</DocLayout>

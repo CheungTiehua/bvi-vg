@@ -1,0 +1,66 @@
+<nav class="toc" aria-label="目录导航">
+  <h2 class="font-sans text-sm font-semibold uppercase tracking-wider text-text-muted mb-3">目录</h2>
+  <div id="toc-list" class="text-sm space-y-1 max-h-[calc(100vh-10rem)] overflow-y-auto">
+    <!-- Populated by JS -->
+  </div>
+</nav>
+
+<script is:inline>
+  (function() {
+    var article = document.querySelector('.prose');
+    var toc = document.getElementById('toc-list');
+    if (!article || !toc) return;
+
+    var headings = article.querySelectorAll('h2, h3');
+    if (headings.length === 0) {
+      toc.parentElement.style.display = 'none';
+      return;
+    }
+
+    var links = [];
+    headings.forEach(function(h) {
+      var id = h.textContent.replace(/\s+/g, '-').replace(/[^\w\u4e00-\u9fff-]/g, '').toLowerCase();
+      h.id = id;
+      var a = document.createElement('a');
+      a.href = '#' + id;
+      a.textContent = h.textContent;
+      a.className = 'block py-1 px-2 rounded hover:bg-bg-muted transition-colors text-text-muted hover:text-text-main border-l-2 border-transparent hover:border-secondary';
+      if (h.tagName === 'H3') {
+        a.className += ' pl-5 text-xs';
+      }
+      toc.appendChild(a);
+      links.push({ el: h, link: a, id: id });
+    });
+
+    // IntersectionObserver scroll spy
+    var observer = new IntersectionObserver(function(entries) {
+      var maxVisible = { ratio: 0, entry: null };
+      entries.forEach(function(e) {
+        if (e.intersectionRatio > maxVisible.ratio) {
+          maxVisible = { ratio: e.intersectionRatio, entry: e };
+        }
+      });
+      if (!maxVisible.entry) return;
+      var activeId = maxVisible.entry.target.id;
+      links.forEach(function(l) {
+        if (l.id === activeId) {
+          l.link.classList.add('!border-secondary', '!text-primary');
+        } else {
+          l.link.classList.remove('!border-secondary', '!text-primary');
+        }
+      });
+    }, { rootMargin: '-80px 0px -60% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] });
+
+    links.forEach(function(l) { observer.observe(l.el); });
+  })();
+</script>
+
+<!-- Mobile TOC: shown in <details> above article -->
+<style is:inline>
+  @media (max-width: 1023px) {
+    .toc-desktop { display: none; }
+  }
+  @media (min-width: 1024px) {
+    .toc-mobile { display: none; }
+  }
+</style>

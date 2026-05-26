@@ -1,0 +1,489 @@
+# BVI.vg — 家族办公室策略平台
+## 技术与内容架构文档
+
+---
+
+## 一、技术架构
+
+### 1.1 域名规划
+
+| 域名 | 用途 |
+|------|------|
+| `bvi.vg` | 主站首页 / 导航中枢 |
+| `spc.bvi.vg` | 独立投资组合公司（SPC）专题 |
+| `bc.bvi.vg` | BVI商业公司（BC）专题 |
+| `vista.bvi.vg` | VISTA信托专题 |
+| `ptc.bvi.vg` | 私人信托公司（PTC）专题 |
+| `economic.bvi.vg` | 经济实质法合规 |
+| `trust.bvi.vg` | 信托综合指南 |
+| `virc.bvi.vg` | VIRRGIN在线系统指引 |
+| `ipo.bvi.vg` | BVI架构与境外上市 |
+| `arbitration.bvi.vg` | BVI国际仲裁 |
+| `litigation.bvi.vg` | BVI诉讼与争议解决 |
+| `regulatory.bvi.vg` | 监管动态追踪 |
+| `phoenix.bvi.vg` | 凤凰信托 |
+
+### 1.2 技术选型
+
+| 层面 | 推荐方案 | 理由 |
+|------|----------|------|
+| 站点生成器 | **Astro** | 内容型网站首选，默认Markdown支持，零JavaScript输出，SEO友好 |
+| 样式框架 | **Tailwind CSS** | 快速构建专业排版，可定制性强 |
+| 组件库 | **Astro Islands** | 按需引入交互组件（搜索、目录导航） |
+| 部署平台 | **Cloudflare Pages** | 免费额度充足，全球CDN，支持自动构建 |
+| 版本控制 | **Git (GitHub)** | 内容即代码，便于追溯和协作 |
+| CMS（可选） | **Decap CMS** | Git-based，非技术人员可在线编辑 |
+| 搜索 | **Pagefind** | 专为静态站点设计，无需后端 |
+| 分析 | **Umami** | 自建或使用托管版，隐私友好 |
+| 评论 | **Giscus** | 基于GitHub Discussions，无数据库 |
+
+### 1.3 项目结构
+
+```
+bvi.vg/
+├── src/
+│   ├── content/
+│   │   ├── bc/                 # bc.bvi.vg 内容
+│   │   │   ├── index.md
+│   │   │   ├── setup.md
+│   │   │   ├── maintenance.md
+│   │   │   └── faq.md
+│   │   ├── spc/
+│   │   │   ├── index.md
+│   │   │   ├── what-is-spc.md
+│   │   │   ├── setup-guide.md
+│   │   │   ├── segregation-mechanism.md
+│   │   │   └── faq.md
+│   │   ├── vista/
+│   │   ├── ptc/
+│   │   ├── economic/
+│   │   ├── trust/
+│   │   ├── ipo/
+│   │   └── regulatory/
+│   ├── layouts/
+│   │   ├── Base.astro          # 基础框架
+│   │   ├── Doc.astro           # 文档页布局（带目录）
+│   │   └── Home.astro          # 首页布局
+│   ├── components/
+│   │   ├── Navigation.astro    # 全局导航（子域名间切换）
+│   │   ├── TableOfContents.astro
+│   │   ├── RelatedPosts.astro
+│   │   ├── Subscription.astro
+│   │   └── Card.astro
+│   ├── pages/
+│   │   ├── index.astro         # bvi.vg 首页
+│   │   ├── about.astro
+│   │   └── [slug].astro        # 其他独立页面
+│   └── styles/
+│       └── global.css
+├── public/
+│   └── images/
+├── astro.config.mjs
+├── tailwind.config.js
+└── package.json
+```
+
+### 1.4 多域名配置方案
+
+**方案一：单仓库多站点（推荐）**
+
+在 `astro.config.mjs` 中动态配置站点：
+
+```javascript
+// 根据环境变量或构建参数切换 site 配置
+export default defineConfig({
+  site: process.env.SITE_URL || 'https://bvi.vg',
+  trailingSlash: 'always'
+})
+```
+
+构建时分别构建各子域名：
+```bash
+SITE_URL=https://bvi.vg astro build
+SITE_URL=https://bc.bvi.vg astro build
+```
+
+**方案二：Monorepo 统一管理**
+
+使用 pnpm workspace 或 Turborepo，每个子域名独立项目，共享组件库。
+
+### 1.5 性能指标目标
+
+| 指标 | 目标值 |
+|------|--------|
+| Lighthouse Performance | ≥ 90 |
+| First Contentful Paint (FCP) | ≤ 0.8s |
+| Largest Contentful Paint (LCP) | ≤ 1.5s |
+| Time to Interactive (TTI) | ≤ 0.5s（主站无需JS） |
+
+### 1.6 SEO 配置
+
+每个页面需包含：
+- 唯一且描述性的 `<title>`（格式：`文章标题 | SPC专题 | BVI.vg`）
+- `<meta name="description">`（120-160字符）
+- `<meta name="author">`（如有）
+- 结构化数据（JSON-LD）：`Article` / `FAQPage` / `CollectionPage`
+- 自动生成 sitemap.xml（Astro 官方集成）
+- robots.txt
+
+### 1.7 响应式断点
+
+| 断点 | 宽度 | 布局调整 |
+|------|------|----------|
+| mobile | < 640px | 单栏，目录折叠为底部抽屉 |
+| tablet | 640px - 1024px | 单栏，侧边目录可选显示 |
+| desktop | > 1024px | 双栏（内容 + 右侧目录） |
+
+---
+
+## 二、内容架构
+
+### 2.1 内容层级体系
+
+```
+Level 0: 首页导航（bvi.vg）
+    ↓
+Level 1: 工具专题（bc.bvi.vg / spc.bvi.vg / vista.bvi.vg / ptc.bvi.vg）
+    ↓
+Level 2: 横向专题（economic.bvi.vg / trust.bvi.vg / ipo.bvi.vg）
+    ↓
+Level 3: 动态追踪（regulatory.bvi.vg）
+    ↓
+Level 4: 深度参考（arbitration / litigation / virc）
+```
+
+### 2.2 主站首页（`bvi.vg`）内容结构
+
+**区块设计：**
+
+| 区块 | 内容 |
+|------|------|
+| Hero | 一句话定位 + 简短说明 |
+| 核心工具导航 | 4张卡片（BC、SPC、VISTA、PTC），每张含标题、一句话说明、链接 |
+| 最新文章 | 6篇最近更新，显示标题、所属专题、发布日期 |
+| 热门专题入口 | 4个横向专题（经济实质法、信托综合、上市路径、监管动态） |
+| 关于本站 | 定位、中立声明、免责 |
+| 邮件订阅 | 输入框 + 说明 |
+
+### 2.3 工具专题通用内容模板
+
+每个工具专题（`bc.bvi.vg`、`spc.bvi.vg`、`vista.bvi.vg`、`ptc.bvi.vg`）需包含以下页面：
+
+**`index.md` — 专题首页**
+- 定义与一句话定位
+- 3个核心价值点（列表形式）
+- 适用场景（2-3个典型场景描述）
+- 与其他工具的关系图/文字说明
+- 快速导航到子页面
+
+**`what-is.md` — 深度解析**
+- 法律定义与来源
+- 核心机制详解
+- 关键条款/特征
+- 与其他工具的对比（如SPC vs 多个独立公司）
+
+**`setup-guide.md` — 设立指南**
+- 前置条件
+- 步骤拆解（5-10步）
+- 时间线预估
+- 所需材料清单
+- 常见设立问题
+
+**`cost-structure.md` — 费用结构**
+- 政府费用（设立费 + 年费）
+- 注册代理费用（预估范围）
+- 其他潜在费用
+- 费用对比表（如有）
+
+**`compliance.md` — 合规要求**
+- 经济实质法适用性判断
+- 年度申报义务
+- 会计记录保存要求
+- CRS下的信息披露
+- 罚款与处罚情形
+
+**`faq.md` — 常见问题**
+- 10-20个实际问题
+- 每个问题配简洁答案
+- 按主题分组
+
+**`cases.md` — 案例示意（可选）**
+- 匿名化架构图（文字描述）
+- 典型配置模式
+- 注意事项
+
+### 2.4 各专题差异内容要点
+
+#### `bc.bvi.vg` — BVI商业公司
+额外内容：
+- 公司设立的基础要素（股东、董事、注册代理人）
+- 股份类别设计（投票权股/无投票权股/优先股）
+- 公司章程调整空间
+- 年度维护 Checklist
+
+#### `spc.bvi.vg` — 独立投资组合公司
+额外内容：
+- SPC与普通BC的核心区别
+- 投资组合的设立与管理机制
+- 资产隔离的法律效力边界（尤其跨国承认问题）
+- SPC的破产隔离原理
+- 适合/不适合使用SPC的判断标准
+
+#### `vista.bvi.vg` — VISTA信托
+额外内容：
+- VISTA与普通信托的核心区别
+- 保留控制权的法律机制（董事任免权）
+- 不当干预条款（Anti-Bartlett条款）
+- 适用场景的精确判断（运营公司 vs 金融资产）
+- VISTA信托的局限性
+
+#### `ptc.bvi.vg` — 私人信托公司
+额外内容：
+- PTC vs 专业受托机构对比
+- PTC的设立前提（通常需配套VISTA）
+- 董事会的构成要求
+- 不得从事信托业务（核心红线）
+- PTC的适用门槛（资产规模判断）
+
+### 2.5 横向专题内容规划
+
+#### `economic.bvi.vg` — 经济实质法
+页面结构：
+- 法律概述与立法背景
+- 哪些实体需要满足
+- “纯控股公司”的定义与豁免条件
+- “相关活动”的认定标准
+- 申报流程与时间节点
+- 违规后果
+- 常见误区澄清
+
+#### `trust.bvi.vg` — 信托综合指南
+页面结构：
+- BVI信托法概述
+- 信托核心要素（委托人、受托人、受益人、保护人）
+- 信托类型概览（VISTA、普通、慈善、目的信托）
+- 信托设立流程
+- 信托的税务处理
+- 信托的变更与终止
+
+#### `ipo.bvi.vg` — BVI架构与境外上市
+页面结构：
+- 典型红筹/VIE架构图（含BVI角色）
+- BVI在架构中的功能定位
+- 上市前的BVI架构搭建
+- 上市后的BVI架构维护
+- 证监会备案对BVI层的穿透要求
+
+#### `regulatory.bvi.vg` — 监管动态
+页面结构：
+- 动态列表（按时间倒序）
+- 每条动态包含：发布日期、摘要、影响分析、原文链接
+- 可按年份/主题筛选
+- RSS订阅出口
+
+### 2.6 深度参考内容
+
+#### `virc.bvi.vg` — VIRRGIN系统
+- 系统功能概述
+- 注册与登录
+- 公司检索操作指引
+- 在线申报操作指引
+- 常见技术问题
+
+#### `arbitration.bvi.vg` — 仲裁
+- BVI国际仲裁中心简介
+- 仲裁规则要点
+- 仲裁 vs 诉讼的选择
+
+#### `litigation.bvi.vg` — 诉讼
+- BVI法院体系
+- 公司诉讼常见类型
+- 穿透追索的司法实践
+
+#### `phoenix.bvi.vg` — 凤凰信托
+- 凤凰信托的定义与用途
+- 与VISTA的关系与区别
+- 适用场景
+
+### 2.7 内容格式规范
+
+**元数据字段（frontmatter）：**
+
+```yaml
+---
+title: "文章标题"
+description: "SEO描述（120-160字符）"
+pubDate: 2026-05-26
+updatedDate: 2026-05-26
+category: "spc"  # bc/spc/vista/ptc/economic/trust/ipo/regulatory
+tags: ["设立指南", "合规"]
+author: "BVI.vg"
+toc: true  # 是否显示目录
+---
+
+```
+
+**内部链接规范：**
+- 主站到子域名：`https://bc.bvi.vg/what-is`
+- 子域名之间：`/what-is`（相对路径）
+- 外链：新标签页打开（`target="_blank" rel="noopener noreferrer"`）
+
+**图片规范：**
+- 架构图优先使用 Mermaid 或 ASCII（便于维护）
+- 截图保存为 WebP 格式
+- 所有图片添加 alt 描述
+
+---
+
+## 三、交互组件
+
+### 3.1 核心组件列表
+
+| 组件 | 位置 | 功能 |
+|------|------|------|
+| 全局导航 | 所有页面顶部 | 主站及各子域名间切换 |
+| 目录导航（TOC） | 文档页右侧/移动端底部 | 自动提取h2/h3生成锚点链接 |
+| 相关阅读 | 文章底部 | 根据标签推荐3-5篇相关内容 |
+| 邮件订阅浮层 | 所有页面 | 邮箱输入 + 确认 |
+| 搜索入口 | 导航栏 | 唤起Pagefind搜索模态框 |
+| 回到顶部 | 滚动一定距离后出现 | 平滑滚动至顶部 |
+| 最后更新提示 | 文章标题下方 | 显示pubDate和updatedDate |
+
+### 3.2 目录导航组件逻辑
+
+```javascript
+// 自动提取当前页面所有 h2, h3
+// 生成嵌套结构的锚点链接
+// 滚动时高亮当前可见章节
+// 移动端通过按钮触发的底部抽屉展示
+```
+
+### 3.3 搜索组件
+
+使用 Pagefind 索引所有内容页面，搜索时展示：
+- 页面标题
+- 匹配片段高亮
+- 所属专题标签
+- 可直接跳转
+
+### 3.4 邮件订阅
+
+- 前端仅收集邮箱
+- 后端可使用：ConvertKit / Buttondown / 自建（通过Cloudflare Workers转发）
+- 双周发送更新汇总
+
+---
+
+## 四、视觉与排版
+
+### 4.1 设计 tokens
+
+```css
+/* 颜色 */
+--color-primary: #0A1C3A;      /* 深蓝 - 主色 */
+--color-secondary: #C6A43F;    /* 金色 - 强调 */
+--color-accent: #6B1D2F;       /* 暗红 - 关键CTA */
+--color-bg: #FFFFFF;           /* 背景 */
+--color-bg-muted: #F5F6F8;     /* 浅色背景区 */
+--color-text: #1A1A1A;         /* 正文 */
+--color-text-muted: #5A5A5A;   /* 辅助文字 */
+--color-border: #E2E4E8;       /* 边框 */
+
+/* 字体 */
+--font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+--font-serif: 'Lora', Georgia, serif;
+--font-mono: 'Fira Code', monospace;
+
+/* 字号 */
+--text-xs: 0.75rem;    /* 12px */
+--text-sm: 0.875rem;   /* 14px */
+--text-base: 1rem;     /* 16px */
+--text-lg: 1.125rem;   /* 18px */
+--text-xl: 1.25rem;    /* 20px */
+--text-2xl: 1.5rem;    /* 24px */
+--text-3xl: 1.875rem;  /* 30px */
+--text-4xl: 2.25rem;   /* 36px */
+
+/* 间距 */
+--spacing: 0.25rem;  /* 基础单位4px */
+```
+
+### 4.2 排版规范
+
+| 元素 | 规范 |
+|------|------|
+| 正文字号 | 桌面端18px / 移动端16px |
+| 行高 | 正文1.7 / 标题1.3 |
+| 段落间距 | 1.5em |
+| 最大行宽 | 70字符（约700-750px） |
+| 引用块 | 左侧金色边框，斜体，浅灰背景 |
+| 代码块 | 暗色主题，等宽字体，带行号（可选） |
+| 表格 | 斑马纹，圆角，悬浮高亮行 |
+| 列表 | 嵌套缩进，列表项间距0.25em |
+
+### 4.3 黑暗模式
+
+- 检测用户系统偏好
+- 提供手动切换按钮
+- 所有颜色需定义暗色变量
+
+```css
+@media (prefers-color-scheme: dark) {
+  --color-bg: #121212;
+  --color-bg-muted: #1E1E1E;
+  --color-text: #EDEDED;
+  --color-text-muted: #A0A0A0;
+  --color-border: #2C2C2C;
+}
+```
+
+---
+
+## 五、内容编写指南
+
+### 5.1 内容基调
+
+- **第三人称**：避免“我们”、“我”
+- **专业但不晦涩**：首次出现术语时给出简短定义
+- **有态度但不激进**：承认BVI的争议性，但聚焦事实分析
+- **明确的免责声明**：每页底部统一格式
+
+### 5.2 术语处理规范
+
+| 术语 | 首次出现 | 之后 |
+|------|----------|------|
+| SPC | Segregated Portfolio Company（独立投资组合公司，简称SPC） | SPC |
+| VISTA | Virgin Islands Special Trusts Act（维尔京群岛特别信托法案，简称VISTA） | VISTA信托 |
+| BC | BVI Business Company（BVI商业公司，简称BC） | BC |
+| PTC | Private Trust Company（私人信托公司，简称PTC） | PTC |
+| CRS | Common Reporting Standard（共同申报准则，简称CRS） | CRS |
+| UBO | Ultimate Beneficial Owner（最终受益人，简称UBO） | UBO |
+
+### 5.3 免责声明模板
+
+> **免责声明**  
+> 本网站所载内容仅供信息参考之用，不构成法律、税务或投资建议。BVI法律及国际监管规则可能发生变化，读者在做出任何决策前应咨询具备相应资质的专业顾问。本网站与英属维尔京群岛政府无任何隶属关系。
+
+### 5.4 引用与标注
+
+- 引用BVI《国际协作经济实质法》等法条时标注：`（《经济实质法》第X条）`
+- 引用案例时标注：`（BVIHCVAP 2020/0023）`
+- 引用第三方报告时标注来源和链接
+
+---
+
+## 六、可访问性（a11y）
+
+| 要求 | 实现方式 |
+|------|----------|
+| 语义化HTML | 使用 `<main>` `<nav>` `<article>` `<aside>` 等 |
+| 键盘导航 | 所有交互元素可tab聚焦，可见焦点环 |
+| 屏幕阅读器 | 图片含alt，图标使用aria-label |
+| 对比度 | 正文对比度 ≥ 4.5:1 |
+| 字体缩放 | 使用rem单位，支持浏览器缩放至200% |
+| 减少动画 | 跟随 `prefers-reduced-motion` |
+
+---
+
+*文档版本：1.0*
+*最后更新：2026年5月26日*

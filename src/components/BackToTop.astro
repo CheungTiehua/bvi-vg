@@ -1,0 +1,33 @@
+<button
+  id="back-to-top"
+  class="fixed bottom-6 right-6 z-50 w-10 h-10 rounded-full bg-primary text-white shadow-lg opacity-0 translate-y-2 pointer-events-none transition-all duration-300 hover:bg-primary-light focus:outline-hidden"
+  aria-label="回到顶部"
+  title="回到顶部"
+>
+  <svg class="w-5 h-5 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+  </svg>
+</button>
+
+<script is:inline>
+  (function() {
+    const btn = document.getElementById('back-to-top');
+    if (!btn) return;
+    let visible = false;
+    window.addEventListener('scroll', function() {
+      var shouldShow = window.scrollY > 300;
+      if (shouldShow !== visible) {
+        visible = shouldShow;
+        if (shouldShow) {
+          btn.classList.remove('opacity-0', 'translate-y-2', 'pointer-events-none');
+        } else {
+          btn.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
+        }
+      }
+    }, { passive: true });
+
+    btn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  })();
+</script>

@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import type { TopicSlug } from '@lib/types';
+
+interface Props {
+  currentSlug: string;
+  category: TopicSlug;
+  tags?: string[];
+}
+
+const { currentSlug, category, tags } = Astro.props;
+
+const allTopics = await getCollection('topics', ({ data }) => !data.draft);
+const related = allTopics
+  .filter((entry) => entry.id !== currentSlug && entry.data.category === category)
+  .slice(0, 4);
+
+if (related.length === 0) {
+  // Fallback to same-tag articles from other categories
+  const tagRelated = allTopics
+    .filter((entry) => {
+      if (entry.id === currentSlug) return false;
+      if (!tags) return false;
+      return entry.data.tags?.some((t) => tags.includes(t));
+    })
+    .slice(0, 4);
+  related.push(...tagRelated);
+}
+---
+
+{related.length > 0 && (
+  <section class="mt-16 border-t border-border-main pt-10">
+    <h2 class="font-sans text-xl font-bold text-primary mb-6">相关阅读</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {related.map((entry) => (
+        <a
+          href={`/${entry.data.category}/${entry.id.replace(/^.*[\\/]/, '').replace(/\.mdx?$/, '')}/`}
+          class="block p-4 rounded-lg border border-border-main hover:border-secondary hover:shadow-md transition-all bg-bg-elevated"
+        >
+          <span class="text-xs font-sans font-medium text-text-muted uppercase">{entry.data.category}</span>
+          <h3 class="font-sans font-semibold text-base mt-0.5 mb-1 text-text-main">{entry.data.title}</h3>
+          <p class="text-sm text-text-muted line-clamp-2">{entry.data.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+)}
