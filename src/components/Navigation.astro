@@ -25,7 +25,7 @@ import { TOPICS, TOPIC_LABELS, PHASE2_TOPICS, PHASE2_LABELS } from '@lib/constan
             </a>
           ))}
           <div class="border-t border-border-light mx-4 my-2"></div>
-          <p class="px-4 py-1 text-xs text-text-muted font-sans">更多专题（即将推出）</p>
+          <p class="px-4 py-1 text-xs text-text-muted font-sans">深度专题</p>
           {PHASE2_TOPICS.map((slug) => (
             <a href={`/${slug}/`} class="block px-4 py-2 text-sm text-text-muted hover:bg-bg-muted transition-colors">
               {PHASE2_LABELS[slug]}
@@ -38,6 +38,8 @@ import { TOPICS, TOPIC_LABELS, PHASE2_TOPICS, PHASE2_LABELS } from '@lib/constan
       <a href="/bc/" class="px-3 py-2 text-sm font-sans font-medium text-text-main hover:text-primary rounded-md hover:bg-bg-muted transition-colors">BC</a>
       <a href="/vista/" class="px-3 py-2 text-sm font-sans font-medium text-text-main hover:text-primary rounded-md hover:bg-bg-muted transition-colors">VISTA</a>
       <a href="/ptc/" class="px-3 py-2 text-sm font-sans font-medium text-text-main hover:text-primary rounded-md hover:bg-bg-muted transition-colors">PTC</a>
+      <a href="/comparison/" class="px-3 py-2 text-sm font-sans font-medium text-text-main hover:text-primary rounded-md hover:bg-bg-muted transition-colors">对比</a>
+      <a href="/fees/" class="px-3 py-2 text-sm font-sans font-medium text-text-main hover:text-primary rounded-md hover:bg-bg-muted transition-colors">费用</a>
       <a href="/about/" class="px-3 py-2 text-sm font-sans font-medium text-text-main hover:text-primary rounded-md hover:bg-bg-muted transition-colors">关于</a>
       <a href="/search/" class="px-3 py-2 text-sm font-sans font-medium text-text-main hover:text-primary rounded-md hover:bg-bg-muted transition-colors">搜索</a>
       <div class="ml-2">
@@ -64,7 +66,7 @@ import { TOPICS, TOPIC_LABELS, PHASE2_TOPICS, PHASE2_LABELS } from '@lib/constan
         <a href={`/${slug}/`} class="block px-3 py-2.5 text-sm font-medium rounded-md hover:bg-bg-muted transition-colors">{TOPIC_LABELS[slug]}</a>
       ))}
       <div class="border-t border-border-light my-2"></div>
-      <p class="text-xs font-sans font-semibold uppercase text-text-muted mb-2">更多专题（即将推出）</p>
+      <p class="text-xs font-sans font-semibold uppercase text-text-muted mb-2">深度专题</p>
       {PHASE2_TOPICS.map((slug) => (
         <a href={`/${slug}/`} class="block px-3 py-2 text-sm text-text-muted rounded-md hover:bg-bg-muted transition-colors">{PHASE2_LABELS[slug]}</a>
       ))}

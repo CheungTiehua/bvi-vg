@@ -1,0 +1,79 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="BVI 架构案例 | BVI.vg" description="BVI 工具在家族办公室、投资基金及境外上市中的典型架构示意与配置模式分析。">
+  <div class="max-w-(--content-max-width) mx-auto px-6 py-10">
+    <nav aria-label="面包屑" class="mb-6">
+      <ol class="flex items-center gap-1.5 text-sm font-sans text-text-muted">
+        <li><a href="/" class="hover:text-primary transition-colors">首页</a></li>
+        <li aria-hidden="true"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li class="text-text-main">案例</li>
+      </ol>
+    </nav>
+
+    <article class="prose">
+      <h1>BVI 架构典型案例</h1>
+      <p class="text-lg text-text-muted">以下案例为匿名化的架构示意，展示了 BVI 工具在不同场景中的典型配置方式。所有案例仅供参考，不构成法律建议。</p>
+
+      <h2>案例一：亚洲家族办公室 — 多资产类别管理</h2>
+      <p><strong>背景：</strong>一家亚洲家族办公室管理约 $500M 资产，涵盖私募股权、公开市场证券、房地产和艺术品四个类别。家族希望各类资产在法律上相互隔离，但避免设立多个独立公司的管理成本。</p>
+      <p><strong>方案：</strong>设立一个 BVI SPC，创设 4 个独立投资组合（SP）：</p>
+      <pre><code>家族办公室 SPC（BVI）
+├── SP-1：私募股权投资
+├── SP-2：公开市场证券投资
+├── SP-3：房地产投资
+└── SP-4：艺术品与收藏品</code></pre>
+      <p><strong>效果：</strong>各类资产在 BVI 法律层面实现隔离，总管理成本仅为 4 个独立 BC 的约 60%。每个 SP 的损益独立核算，投资者可按 SP 分别认购。</p>
+
+      <h2>案例二：制造业企业家 — 家族企业传承</h2>
+      <p><strong>背景：</strong>一位 65 岁的制造业企业家，其运营公司年营收约 $200M。他希望将公司股权逐步过渡给两个子女，但自己继续担任 CEO 至少 5 年。</p>
+      <p><strong>方案：</strong>VISTA 信托 + BC 组合。</p>
+      <pre><code>VISTA 信托（BVI）
+    │ 受托人：BVI 持牌信托公司
+    │ 指定人：企业家本人
+    │ 受益人：两个子女
+    ↓ 持有 100% 股权
+运营控股 BC（BVI）
+    ↓ 持有 100% 股权
+运营公司（所在地）</code></pre>
+      <p><strong>效果：</strong>企业家通过指定人身份保留任免董事的权力，继续以 CEO 身份管理公司。受托人不介入公司运营。信托契约约定：企业家去世后，指定人权力转移给家族委员会。子女作为受益人享有经济利益，但不影响公司经营。</p>
+
+      <h2>案例三：多家族联合投资平台</h2>
+      <p><strong>背景：</strong>三个家族各出资 $30M，希望共同投资早期科技项目。每个家族的投资比例不同，且各家希望对各自的投资组合有独立决策权。</p>
+      <p><strong>方案：</strong>SPC + PTC 组合。</p>
+      <pre><code>家族委员会
+    ↓ 设立
+PTC（BVI）— 担任受托人
+    ↓ 受托
+联合投资 SPC（BVI）
+├── SP-A：家族 A 投资组合（$30M）
+├── SP-B：家族 B 投资组合（$30M）
+└── SP-C：家族 C 投资组合（$30M）</code></pre>
+      <p><strong>效果：</strong>三个 SP 在法律上相互隔离，各家投资决策互不干扰。PTC 董事会由三个家族的代表组成，各方对受托人决策均有发言权。年度审计按 SP 分别进行。</p>
+
+      <h2>案例四：科技公司创始人 — 红筹上市架构</h2>
+      <p><strong>背景：</strong>两位联合创始人计划将公司赴港交所上市。运营实体在中国大陆，采用 VIE 架构。创始人希望在上市后保留灵活退出能力。</p>
+      <p><strong>方案：</strong>典型的 BVI 创始人持股架构。</p>
+      <pre><code>创始人 A             创始人 B
+    ↓                     ↓
+BC-A（BVI）         BC-B（BVI）
+    ↓ 各持一定比例     ↓
+开曼上市主体（Cayman Islands）
+    ↓ 100%
+香港中间层（HK）
+    ↓ 100%
+WFOE（中国大陆）
+    ↓ VIE协议
+OPCO（中国大陆运营实体）</code></pre>
+      <p><strong>效果：</strong>创始人通过各自 BVI 公司间接持股。出售股份时只需转让 BVI 公司股权，无需在上市公司层面操作。BVI 不征收资本利得税，退出税务高效。上市前后架构保持一致，无需重组。</p>
+
+      <h2>注意事项</h2>
+      <ul>
+        <li>以上案例为匿名化示意，实际架构设计须结合具体法律、税务和商业条件</li>
+        <li>所有架构须满足经济实质法和 CRS 合规要求</li>
+        <li>中国居民创始人须关注外汇管理（37号文备案）和税务居民申报义务</li>
+      </ul>
+    </article>
+  </div>
+</BaseLayout>

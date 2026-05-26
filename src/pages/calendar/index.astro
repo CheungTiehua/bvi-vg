@@ -1,0 +1,85 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="BVI 年度合规日历 | BVI.vg" description="BVI 公司年度合规时间线一览：年费、年度申报、经济实质、CRS 等关键节点的截止日期提醒。">
+  <div class="max-w-(--content-max-width) mx-auto px-6 py-10">
+    <nav aria-label="面包屑" class="mb-6">
+      <ol class="flex items-center gap-1.5 text-sm font-sans text-text-muted">
+        <li><a href="/" class="hover:text-primary transition-colors">首页</a></li>
+        <li aria-hidden="true"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li class="text-text-main">合规日历</li>
+      </ol>
+    </nav>
+
+    <article class="prose">
+      <h1>BVI 年度合规日历</h1>
+      <p class="text-lg text-text-muted">BC 和 SPC 的全年合规时间线。以 1 月 1 日注册的公司为例，实际日期以公司周年日为准。</p>
+
+      <h2>以周年日为基准的年度合规地图</h2>
+      <p>BVI 公司的合规义务以其<strong>注册周年日</strong>（Anniversary Date）为基准，而非自然年。以下日历假设公司注册日为 1 月 1 日。</p>
+
+      <div class="space-y-6">
+
+        <div class="border-l-2 border-secondary pl-4">
+          <h3 class="!text-lg !mt-0 !mb-1">1月1日 — 周年日</h3>
+          <p class="text-sm text-text-muted">公司注册周年日。所有基于"周年日"的截止日期从此起算。</p>
+        </div>
+
+        <div class="border-l-2 border-secondary pl-4">
+          <h3 class="!text-lg !mt-0 !mb-1">1月15日前 — 年度申报（Annual Return）</h3>
+          <p class="text-sm text-text-muted">提交年度申报表至公司注册处。通常由注册代理人代为处理。逾期将产生递增罚款。</p>
+          <p class="text-sm !mt-0"><strong>操作：</strong>联系注册代理人确认已提交。费用：通常包含在年度服务费中。</p>
+        </div>
+
+        <div class="border-l-2 border-secondary pl-4">
+          <h3 class="!text-lg !mt-0 !mb-1">1月31日前 — 年费缴纳</h3>
+          <p class="text-sm text-text-muted">缴纳年度政府牌照费（Annual Licence Fee）。金额取决于授权股本：≤50,000股为$450，50,001-1,000,000股为$1,100，超过为$1,600。</p>
+          <p class="text-sm !mt-0"><strong>操作：</strong>确认注册代理人已代缴。</p>
+        </div>
+
+        <div class="border-l-2 border-accent pl-4">
+          <h3 class="!text-lg !mt-0 !mb-1">2-5月 — 财政年度结束</h3>
+          <p class="text-sm text-text-muted">多数 BVI 公司将 12 月 31 日设为财政年度截止日。如是，须在 6 月 30 日前完成年度财务报表编制。</p>
+          <p class="text-sm !mt-0"><strong>操作：</strong>整理全年账目，提交给会计师或内部财务人员。</p>
+        </div>
+
+        <div class="border-l-2 border-accent pl-4">
+          <h3 class="!text-lg !mt-0 !mb-1">6月30日前 — 经济实质申报</h3>
+          <p class="text-sm text-text-muted">财务年度结束后 6 个月内，通过 BOSS 系统提交经济实质申报。</p>
+          <p class="text-sm !mt-0"><strong>操作：</strong>确认公司类别（纯控股或从事相关活动），准备申报数据，提交 BOSS 申报。</p>
+        </div>
+
+        <div class="border-l-2 border-accent pl-4">
+          <h3 class="!text-lg !mt-0 !mb-1">7月31日前 — CRS 申报（如适用）</h3>
+          <p class="text-sm text-text-muted">如公司被认定为 CRS 下的报告金融机构，须向 BVI 税务信息管理局（ITA）提交年度 CRS 报告。</p>
+          <p class="text-sm !mt-0"><strong>操作：</strong>确认公司是否需要 CRS 申报。如需，联系专业服务商代为提交。</p>
+        </div>
+
+        <div class="border-l-2 border-secondary pl-4">
+          <h3 class="!text-lg !mt-0 !mb-1">随时 — 变更备案</h3>
+          <p class="text-sm text-text-muted">以下变更须在发生后 15 天内通过注册代理人向公司注册处备案：</p>
+          <ul class="text-sm !mt-1">
+            <li>董事变更（任免）</li>
+            <li>注册地址变更</li>
+            <li>公司名称变更</li>
+            <li>公司章程修改</li>
+            <li>最终受益人（UBO）信息变更</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <h2>快速参考：关键截止日</h2>
+      <table>
+        <tr><th>事项</th><th>截止日基准</th><th>逾期后果</th></tr>
+        <tr><td>年度申报</td><td>周年日后 14 天内</td><td>递增罚款</td></tr>
+        <tr><td>年费缴纳</td><td>周年日后 30 天内</td><td>罚款 + 公司可能被除名</td></tr>
+        <tr><td>经济实质申报</td><td>财政年度结束后 6 个月内</td><td>$5,000-$25,000 罚款</td></tr>
+        <tr><td>变更备案</td><td>变更后 15 天内</td><td>逾期罚款</td></tr>
+        <tr><td>CRS 申报</td><td>报告年度结束后 7 个月内</td><td>罚款 + 可能刑事处罚</td></tr>
+        <tr><td>会计记录保存</td><td>至少 5 年</td><td>最高 $10,000 罚款</td></tr>
+      </table>
+    </article>
+  </div>
+</BaseLayout>

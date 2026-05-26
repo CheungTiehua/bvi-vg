@@ -1,23 +1,36 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { PHASE2_LABELS } from '@lib/constants';
 ---
 
 <BaseLayout title="关于本站 | BVI.vg">
-  <div class="max-w-2xl mx-auto px-6 py-16">
-    <h1 class="font-sans text-3xl font-bold text-primary mb-8">关于本站</h1>
-    <div class="prose">
-      <p><strong>BVI.vg</strong> 致力于为华人家族办公室、财富管理人、律师和企业家提供关于英属维尔京群岛（BVI）离岸工具的权威中文参考。</p>
-      <h2>网站定位</h2>
-      <p>本网站全方位展示 BVI 的公司架构、信托工具及其操作方法，涵盖从基础概念到合规实务的完整知识体系。</p>
-      <h2>内容说明</h2>
+  <div class="max-w-(--content-max-width) mx-auto px-6 py-10">
+    <article class="prose">
+      <h1>关于 BVI.vg</h1>
+
+      <p><strong>BVI.vg</strong> 是专注于英属维尔京群岛（British Virgin Islands）离岸工具的中文知识平台。本网站致力于为华人家族办公室、财富管理人、律师和企业家提供权威、准确、实用的 BVI 架构与合规信息。</p>
+
+      <h2>内容范围</h2>
+      <p>本网站涵盖 BVI 离岸工具的全方位中文指南，包括四大核心专题和八大深度领域：</p>
       <ul>
-        <li>所有内容均以中文撰写，首次出现的专业术语标注英文对应名称</li>
-        <li>力求专业准确，但不构成法律或税务建议</li>
-        <li>引用 BVI 法律法规和实务经验，保持中立客观</li>
+        <li><strong>核心工具</strong>：SPC 独立投资组合公司、BC 商业公司、VISTA 信托、PTC 私人信托公司</li>
+        <li><strong>横向专题</strong>：经济实质法合规、信托综合指南、境外上市架构、监管动态追踪</li>
+        <li><strong>深度参考</strong>：国际仲裁、诉讼与争议解决、VIRRGIN 在线系统、凤凰信托</li>
       </ul>
+
+      <h2>内容特色</h2>
+      <ul>
+        <li>全部以<strong>中文</strong>撰写，专业术语首次出现时标注英文对应名称</li>
+        <li>引用 BVI 法律法规原文，标注具体条款和案例字号</li>
+        <li>保持<strong>中立客观</strong>——既介绍 BVI 的制度优势，也不回避其争议和局限性</li>
+        <li>定期更新，跟踪最新监管动态和司法实践</li>
+      </ul>
+
+      <h2>关于 BVI</h2>
+      <p>英属维尔京群岛（BVI）是全球领先的离岸金融中心之一。根据 BVI 金融服务委员会（FSC）数据，截至 2025 年底，BVI 注册的活跃公司超过 50 万家。BVI 法律体系基于英国普通法，以稳定、灵活和高效著称。</p>
+
       <h2>免责</h2>
-      <p>本网站与英属维尔京群岛政府无任何隶属关系。所有内容仅供信息参考，具体决策请咨询具备相应资质的专业顾问。</p>
-    </div>
+      <p>本网站与英属维尔京群岛政府、金融服务委员会（FSC）或任何政府机构<strong>无隶属关系</strong>。本网站内容仅供信息参考，<strong>不构成法律、税务或投资建议</strong>。读者在做出任何决策前，应咨询具备相应资质的专业顾问。</p>
+      <p>详见：<a href="/disclaimer/">完整免责声明</a></p>
+    </article>
   </div>
 </BaseLayout>
