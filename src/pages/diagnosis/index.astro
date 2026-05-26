@@ -1,0 +1,140 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="BVI 架构自诊 | 30 秒找到适合你的工具 | BVI.vg" description="5 个简单问题，帮你判断是否需要 BVI 公司、SPC、VISTA 信托还是 PTC。不确定自己需不需要 BVI？从这里开始。">
+  <div class="max-w-(--content-max-width) mx-auto px-6 py-10">
+    <article class="prose">
+      <h1>不确定自己需不需要 BVI？</h1>
+      <p class="text-lg text-text-muted">5 个简单问题，帮你判断最适合的 BVI 工具。即使你不确定问题是什么意思，我们也提供了说明。</p>
+
+      <div class="not-prose space-y-5 mt-8" id="diagnosis">
+        <!-- Q1 -->
+        <div class="border border-border-main rounded-xl p-5" id="q1-card">
+          <p class="font-sans font-semibold text-base mb-3">Q1 · 你是否计划或已经在境外（港/美）上市？</p>
+          <p class="text-sm text-text-muted mb-3">包括正在进行红筹/VIE 架构搭建，或者已有境外上市主体。</p>
+          <div class="flex gap-3">
+            <button onclick="answer('q1','yes','创始人路径')" class="px-4 py-2 rounded-lg border border-border-main hover:border-secondary hover:bg-secondary/5 text-sm font-sans transition-colors">是</button>
+            <button onclick="answer('q1','no')" class="px-4 py-2 rounded-lg border border-border-main hover:border-secondary hover:bg-secondary/5 text-sm font-sans transition-colors">否</button>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="border border-border-main rounded-xl p-5" id="q2-card">
+          <p class="font-sans font-semibold text-base mb-3">Q2 · 你是否管理超过 1 类资产 / 策略 / 投资组合？</p>
+          <p class="text-sm text-text-muted mb-3">例如同时有股票、私募股权、房产、艺术品等不同资产类别需要分开管理。</p>
+          <div class="flex gap-3">
+            <button onclick="answer('q2','yes','SPC')" class="px-4 py-2 rounded-lg border border-border-main hover:border-secondary hover:bg-secondary/5 text-sm font-sans transition-colors">是</button>
+            <button onclick="answer('q2','no')" class="px-4 py-2 rounded-lg border border-border-main hover:border-secondary hover:bg-secondary/5 text-sm font-sans transition-colors">否</button>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="border border-border-main rounded-xl p-5" id="q3-card">
+          <p class="font-sans font-semibold text-base mb-3">Q3 · 你是否想把家族企业传给下一代，但自己还想继续经营？</p>
+          <p class="text-sm text-text-muted mb-3">企业是你一手创办的，你不想现在就放手，但又需要开始规划传承。</p>
+          <div class="flex gap-3">
+            <button onclick="answer('q3','yes','VISTA 信托')" class="px-4 py-2 rounded-lg border border-border-main hover:border-secondary hover:bg-secondary/5 text-sm font-sans transition-colors">是，这正是我的情况</button>
+            <button onclick="answer('q3','no')" class="px-4 py-2 rounded-lg border border-border-main hover:border-secondary hover:bg-secondary/5 text-sm font-sans transition-colors">否</button>
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="border border-border-main rounded-xl p-5" id="q4-card">
+          <p class="font-sans font-semibold text-base mb-3">Q4 · 你的家族信托每年付给第三方受托机构（银行/信托公司）超过 $30,000？</p>
+          <p class="text-sm text-text-muted mb-3">或者你有 3 个以上信托，每个都在向不同机构支付受托费。</p>
+          <div class="flex gap-3">
+            <button onclick="answer('q4','yes','PTC')" class="px-4 py-2 rounded-lg border border-border-main hover:border-secondary hover:bg-secondary/5 text-sm font-sans transition-colors">是</button>
+            <button onclick="answer('q4','no')" class="px-4 py-2 rounded-lg border border-border-main hover:border-secondary hover:bg-secondary/5 text-sm font-sans transition-colors">否</button>
+            <button onclick="answer('q4','not-sure')" class="px-4 py-2 rounded-lg border border-border-main hover:border-secondary hover:bg-secondary/5 text-sm font-sans transition-colors">不太确定</button>
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="border border-border-main rounded-xl p-5" id="q5-card">
+          <p class="font-sans font-semibold text-base mb-3">Q5 · 你是否只是想设立一个简单的控股/贸易公司？</p>
+          <p class="text-sm text-text-muted mb-3">只需要基本的有限责任、方便开户、维护简单，不需要复杂的架构。</p>
+          <div class="flex gap-3">
+            <button onclick="answer('q5','yes','BC')" class="px-4 py-2 rounded-lg border border-border-main hover:border-secondary hover:bg-secondary/5 text-sm font-sans transition-colors">是，就这么简单</button>
+            <button onclick="answer('q5','no')" class="px-4 py-2 rounded-lg border border-border-main hover:border-secondary hover:bg-secondary/5 text-sm font-sans transition-colors">否，我想更复杂一些</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Result area -->
+      <div id="result" class="not-prose mt-8 hidden">
+        <div id="result-content" class="border-2 border-secondary rounded-xl p-6 bg-secondary/5"></div>
+      </div>
+    </article>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+(function() {
+  var answers = {};
+  var results = [];
+
+  function show(element) { element.style.display = ''; }
+  function hide(element) { element.style.display = 'none'; }
+
+  function done(id) {
+    var el = document.getElementById(id + '-card');
+    if (el) el.style.opacity = '0.4';
+    // Disable buttons
+    var buttons = el.querySelectorAll('button');
+    buttons.forEach(function(b) { b.disabled = true; });
+  }
+
+  function showResult(paths) {
+    var container = document.getElementById('result');
+    var content = document.getElementById('result-content');
+
+    var unique = [];
+    paths.forEach(function(p) {
+      if (p && unique.indexOf(p) < 0) unique.push(p);
+    });
+
+    if (unique.length === 0) {
+      content.innerHTML = '<p class="font-sans font-semibold text-base mb-3">诊断结果</p><p class="text-sm text-text-muted mb-4">根据你的回答，BC（BVI 商业公司）最基础也最灵活，适合大多数场景。建议从 BC 开始了解。</p><a href="/bc/" class="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg text-sm font-sans hover:bg-primary-light transition-colors">了解 BC</a>';
+    } else {
+      var html = '<p class="font-sans font-semibold text-base mb-3">诊断结果</p>';
+      html += '<p class="text-sm text-text-muted mb-4">根据你的回答，以下工具最可能匹配你的需求：</p>';
+
+      unique.forEach(function(p) {
+        var slug = '';
+        var desc = '';
+        switch(p) {
+          case 'BC': slug = 'bc'; desc = '最基础的 BVI 离岸公司，适用于控股、贸易、融资。设立快、维护简单。'; break;
+          case 'SPC': slug = 'spc'; desc = '一个公司下设多个独立投资组合，资产隔离、成本效率兼顾。适合多策略管理。'; break;
+          case 'VISTA 信托': slug = 'vista'; desc = '将公司股权置入信托，同时保留你的经营控制权。解决"传承 vs 控制"的矛盾。'; break;
+          case 'PTC': slug = 'ptc'; desc = '你的家族自己当信托受托人，替代银行/信托公司。掌控力最高、长期成本更低（资产 $20M+ 时）。'; break;
+          case '创始人路径': slug = 'ipo'; desc = '境外上市架构中的 BVI 角色：创始人持股平台、ESOP、退出通道。'; break;
+        }
+        html += '<a href="/' + slug + '/" class="block p-4 rounded-lg border border-border-main hover:border-secondary hover:shadow-md transition-all mb-3"><p class="font-sans font-semibold text-sm mb-1">' + p + '</p><p class="text-xs text-text-muted">' + desc + '</p></a>';
+      });
+
+      html += '<a href="/comparison/" class="inline-flex items-center mt-2 px-4 py-2 bg-secondary text-primary rounded-lg text-sm font-sans font-semibold hover:bg-secondary-light transition-colors">查看完整工具对比</a>';
+      content.innerHTML = html;
+    }
+
+    show(container);
+    container.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  window.answer = function(q, answer, path) {
+    if (answers[q]) return; // already answered
+    answers[q] = answer;
+    done(q);
+    if (path) results.push(path);
+
+    // Check if all answered
+    var total = 5;
+    var answered = Object.keys(answers).length;
+    if (answered >= total) {
+      // If no path matched, default to BC
+      if (results.length === 0) results.push('BC');
+      showResult(results);
+    }
+  };
+})();
+</script>
