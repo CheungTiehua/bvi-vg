@@ -1,7 +1,79 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import PlaceholderPage from '@components/PlaceholderPage.astro';
 ---
-<BaseLayout title="经济实质法合规 | BVI.vg">
-  <PlaceholderPage title="经济实质法合规" description="BVI 经济实质法的立法背景、适用范围与合规要点全面解读。" />
+
+<BaseLayout title="经济实质法合规 | BVI.vg" description="BVI 经济实质法的立法背景、适用范围、纯控股公司豁免条件及合规申报全流程解析。">
+  <div class="max-w-(--content-max-width) mx-auto px-6 py-10">
+    <nav aria-label="面包屑" class="mb-6">
+      <ol class="flex items-center gap-1.5 text-sm font-sans text-text-muted">
+        <li><a href="/" class="hover:text-primary transition-colors">首页</a></li>
+        <li aria-hidden="true"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li class="text-text-main">经济实质法</li>
+      </ol>
+    </nav>
+
+    <article class="prose">
+      <span class="inline-block px-3 py-1 rounded-full text-xs font-sans font-medium bg-primary/10 text-primary mb-4">横向专题</span>
+      <h1>经济实质法合规</h1>
+      <p class="text-lg text-text-muted">BVI 经济实质（Economic Substance）要求的立法背景、适用范围、合规申报全流程解析。</p>
+
+      <h2>立法背景</h2>
+      <p>BVI《经济实质法》（Economic Substance Act）于 2019 年 1 月 1 日正式生效，是为响应欧盟行为准则小组（EU Code of Conduct Group）和 OECD 关于"有害税收实践"的倡议而制定的。该法律要求从事"相关活动"的 BVI 法人实体必须在 BVI 境内具备足够的经济实质。</p>
+      <p>该法案的核心目的：确保在 BVI 注册的公司不仅仅是"空壳"，而是具有与其业务活动相匹配的实际运营存在。</p>
+
+      <h2>哪些实体需要满足经济实质要求</h2>
+      <p>所有 BVI 商业公司（BC）和有限合伙制企业，如果从事以下"相关活动"（Relevant Activities），均须满足经济实质要求：</p>
+      <ol>
+        <li><strong>银行业务</strong></li>
+        <li><strong>保险业务</strong></li>
+        <li><strong>基金管理业务</strong></li>
+        <li><strong>融资与租赁业务</strong></li>
+        <li><strong>总部业务</strong></li>
+        <li><strong>控股公司业务</strong>（纯控股公司适用简化要求）</li>
+        <li><strong>知识产权业务</strong></li>
+        <li><strong>航运业务</strong></li>
+        <li><strong>分销与服务中心业务</strong></li>
+      </ol>
+
+      <h2>纯控股公司的特殊规则</h2>
+      <p>"纯控股公司"（Pure Equity Holding Company）是经济实质法中最常见的适用类型。定义为：仅持有其他实体股权、仅收取股息和资本收益的公司。</p>
+      <p>纯控股公司适用<strong>简化版经济实质要求</strong>：</p>
+      <ul>
+        <li>遵守 BVI 公司法的法定义务</li>
+        <li>拥有"足够"的员工和场所来持有和管理股权——这一要求可通过注册代理人提供的注册地址和公司秘书服务来满足</li>
+      </ul>
+      <p>关键点：纯控股公司<strong>不需要</strong>在 BVI 租赁实体办公室或雇佣当地员工。注册代理人提供的标准服务通常已足够。</p>
+
+      <h2>"相关活动"的认定标准</h2>
+      <p>判断一个实体是否从事相关活动，不看其公司章程中的目的条款，而看其<strong>实际从事的活动</strong>。如果实体在财务年度内从相关活动中获得了收入，就需要满足经济实质要求。</p>
+
+      <h2>申报流程与时间节点</h2>
+      <ol>
+        <li><strong>财务年度结束后 6 个月内</strong>：通过 BOSS（Beneficial Ownership Secure Search）系统提交经济实质申报</li>
+        <li>申报内容包括：相关活动类别、核心创收活动（CIGA）在 BVI 的开展情况、员工数量、运营支出等</li>
+        <li>国际税务管理局（ITA）负责审核申报信息</li>
+      </ol>
+
+      <h2>违规后果</h2>
+      <table>
+        <tr><th>违规类型</th><th>首次罚款</th><th>持续违规</th></tr>
+        <tr><td>未提交申报</td><td>5,000 美元</td><td>递增罚款 + 可能除名</td></tr>
+        <tr><td>经济实质不足</td><td>5,000 - 25,000 美元</td><td>最高可被除名</td></tr>
+        <tr><td>虚假申报</td><td>最高 75,000 美元</td><td>刑事处罚可能</td></tr>
+      </table>
+
+      <h2>常见误区澄清</h2>
+      <ul>
+        <li><strong>误区一</strong>："所有 BVI 公司都需要租赁办公室"——不对，纯控股公司只需通过注册代理人即可满足要求</li>
+        <li><strong>误区二</strong>："没有收入就不需要申报"——不对，即使没有收入，仍可能需要进行零申报</li>
+        <li><strong>误区三</strong>："经济实质=BVI 税收"——不对，BVI 仍然不征收企业所得税</li>
+        <li><strong>误区四</strong>："只要请一个 BVI 员工就够了"——不够，需要综合评估 CIGA、场所、人员和支出</li>
+      </ul>
+    </article>
+
+    <aside class="mt-12 p-5 rounded-lg bg-bg-muted border border-border-main text-sm text-text-muted" role="note">
+      <p class="font-sans font-semibold text-text-main mb-2">免责声明</p>
+      <p>本网站所载内容仅供信息参考之用，不构成法律、税务或投资建议。BVI 法律及国际监管规则可能发生变化，读者在做出任何决策前应咨询具备相应资质的专业顾问。</p>
+    </aside>
+  </div>
 </BaseLayout>

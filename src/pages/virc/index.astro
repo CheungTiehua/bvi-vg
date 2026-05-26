@@ -1,7 +1,72 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import PlaceholderPage from '@components/PlaceholderPage.astro';
 ---
-<BaseLayout title="VIRRGIN 在线系统 | BVI.vg">
-  <PlaceholderPage title="VIRRGIN 在线系统" description="VIRRGIN 系统功能概述、注册使用与在线申报操作指引。" />
+
+<BaseLayout title="VIRRGIN 在线系统 | BVI.vg" description="BVI VIRRGIN 在线公司注册系统功能概述、账户注册、公司检索与在线申报操作指引。">
+  <div class="max-w-(--content-max-width) mx-auto px-6 py-10">
+    <nav aria-label="面包屑" class="mb-6">
+      <ol class="flex items-center gap-1.5 text-sm font-sans text-text-muted">
+        <li><a href="/" class="hover:text-primary transition-colors">首页</a></li>
+        <li aria-hidden="true"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li class="text-text-main">VIRRGIN 系统</li>
+      </ol>
+    </nav>
+
+    <article class="prose">
+      <span class="inline-block px-3 py-1 rounded-full text-xs font-sans font-medium bg-primary/10 text-primary mb-4">深度参考</span>
+      <h1>VIRRGIN 在线系统</h1>
+      <p class="text-lg text-text-muted">BVI 公司注册处 VIRRGIN 电子系统的功能概述与操作指引。</p>
+
+      <h2>系统概述</h2>
+      <p>VIRRGIN（Virgin Islands Registry of Records and General Information Network）是 BVI 公司注册处的官方电子平台，用于：</p>
+      <ul>
+        <li>公司名称查询与预留</li>
+        <li>公司注册申请（新设公司）</li>
+        <li>公司文件检索与下载（公司注册证书、章程等）</li>
+        <li>年度申报提交</li>
+        <li>公司变更备案（董事、股东、注册地址变更等）</li>
+        <li>公司注销/除名申请</li>
+      </ul>
+
+      <h2>用户类型</h2>
+      <p>VIRRGIN 系统面向两类用户：</p>
+      <ol>
+        <li><strong>注册代理人</strong>（Registered Agents）——拥有完整操作权限，可代表客户进行所有公司事务操作。这是最主要的用户群。</li>
+        <li><strong>公众用户</strong>（Public Users）——可进行有限的公司检索（按名称或编号查询），获取公司的基本信息（名称、编号、状态、注册日期）</li>
+      </ol>
+      <p>普通公司股东和董事通常不需要直接使用 VIRRGIN。日常操作（如年度申报、文件备案）由注册代理人代为处理。</p>
+
+      <h2>公司检索操作</h2>
+      <p>公众可通过 VIRRGIN 的免费检索功能查询公司基本信息：</p>
+      <ol>
+        <li>访问 VIRRGIN 平台（virrgin.vg）</li>
+        <li>选择"Company Search"</li>
+        <li>输入公司名称或公司编号</li>
+        <li>系统返回匹配结果，包括：公司名称、公司编号、注册状态（Active/Struck Off）、注册日期</li>
+      </ol>
+      <p>如需获取公司的章程文件、董事名册等详细信息，须通过注册代理人提交付费申请。</p>
+
+      <h2>常见的注册代理人操作</h2>
+      <p>以下为公司维护中最常见的 VIRRGIN 操作（由注册代理人执行）：</p>
+      <ul>
+        <li><strong>年度申报</strong>：每年在周年日之前提交 Annual Return</li>
+        <li><strong>董事变更备案</strong>：新任或辞职董事在 15 天内通过 VIRRGIN 向注册处备案</li>
+        <li><strong>注册地址变更</strong>：注册地址变更须在变更后 15 天内备案</li>
+        <li><strong>公司名称变更</strong>：通过 VIRRGIN 提交名称变更申请，需附股东决议</li>
+      </ul>
+
+      <h2>常见问题</h2>
+      <h3>VIRRGIN 系统的网址是什么？</h3>
+      <p>官方网址为 virrgin.vg。请注意区分正规网站和仿冒网站。</p>
+      <h3>个人可以自己注册 VIRRGIN 账户吗？</h3>
+      <p>注册代理人账户需要 BVI FSC 的授权。普通公众可以注册为游客用户进行有限检索，但无法提交公司文件。</p>
+      <h3>VIRRGIN 上的文件有法律效力吗？</h3>
+      <p>公司注册证书的电子版与纸质版具有同等法律效力。但某些文件（如经核证的公司章程）可能需要申请纸质版本以满足特定需求。</p>
+    </article>
+
+    <aside class="mt-12 p-5 rounded-lg bg-bg-muted border border-border-main text-sm text-text-muted" role="note">
+      <p class="font-sans font-semibold text-text-main mb-2">免责声明</p>
+      <p>本网站所载内容仅供信息参考之用，不构成法律、税务或投资建议。BVI 法律及国际监管规则可能发生变化，读者在做出任何决策前应咨询具备相应资质的专业顾问。</p>
+    </aside>
+  </div>
 </BaseLayout>

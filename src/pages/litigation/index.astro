@@ -1,7 +1,67 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import PlaceholderPage from '@components/PlaceholderPage.astro';
 ---
-<BaseLayout title="BVI 诉讼与争议解决 | BVI.vg">
-  <PlaceholderPage title="BVI 诉讼与争议解决" description="BVI 法院体系介绍、公司诉讼常见类型与穿透追索实务。" />
+
+<BaseLayout title="BVI 诉讼与争议解决 | BVI.vg" description="BVI 法院体系介绍、公司诉讼常见类型、股东纠纷解决机制及穿透追索的司法实践分析。">
+  <div class="max-w-(--content-max-width) mx-auto px-6 py-10">
+    <nav aria-label="面包屑" class="mb-6">
+      <ol class="flex items-center gap-1.5 text-sm font-sans text-text-muted">
+        <li><a href="/" class="hover:text-primary transition-colors">首页</a></li>
+        <li aria-hidden="true"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li class="text-text-main">诉讼与争议解决</li>
+      </ol>
+    </nav>
+
+    <article class="prose">
+      <span class="inline-block px-3 py-1 rounded-full text-xs font-sans font-medium bg-primary/10 text-primary mb-4">深度参考</span>
+      <h1>BVI 诉讼与争议解决</h1>
+      <p class="text-lg text-text-muted">BVI 法院体系概述、与离岸公司相关的常见诉讼类型及关键司法实践分析。</p>
+
+      <h2>BVI 法院体系</h2>
+      <p>BVI 的法院体系分为三个层级：</p>
+      <ol>
+        <li><strong>高等法院（High Court）</strong>——初审法院，审理商事纠纷、公司纠纷、信托纠纷等。商业法庭（Commercial Court）专门处理复杂商事案件</li>
+        <li><strong>上诉法院（Court of Appeal）</strong>——审理对高等法院判决的上诉</li>
+        <li><strong>枢密院司法委员会（Privy Council）</strong>——终审法院，位于伦敦，是 BVI 的最高上诉机构</li>
+      </ol>
+
+      <h2>公司诉讼常见类型</h2>
+
+      <h3>不公平损害诉讼（Unfair Prejudice）</h3>
+      <p>BVI《商业公司法》第 184I 条规定了"不公平损害"救济。少数股东如能证明公司事务的处理方式对其构成不公平损害，可向法院申请救济，包括：</p>
+      <ul>
+        <li>要求公司或大股东收购其股份</li>
+        <li>指定接管人管理公司</li>
+        <li>要求公司采取或不采取特定行为</li>
+      </ul>
+
+      <h3>股东派生诉讼（Derivative Action）</h3>
+      <p>股东在特定情况下可以公司名义提起诉讼（对董事不当行为等）。BVI 法律设置了前置许可程序——股东须先获得法院许可（leave of court）才能提起派生诉讼。</p>
+
+      <h3>清盘申请（Winding Up Petition）</h3>
+      <p>债权人或股东可基于"公正与公平"（just and equitable）原则申请 BVI 公司清盘。这是股东纠纷中最严厉的救济手段。</p>
+
+      <h3>资产追查与冻结令</h3>
+      <p>BVI 法院在全球资产追查中扮演重要角色。常见的中间救济措施包括：</p>
+      <ul>
+        <li><strong>玛瑞瓦禁令（Mareva Injunction）</strong>——冻结被告的全球资产</li>
+        <li><strong>披露令（Norwich Pharmacal Order）</strong>——要求第三方（如注册代理人）披露相关信息</li>
+        <li><strong>搜查令（Anton Piller Order）</strong>——允许进入被告场所搜查和保全证据</li>
+      </ul>
+
+      <h2>穿透追索的司法实践</h2>
+      <p>BVI 法院在处理离岸公司时面临的核心问题是：何时可以"揭开公司面纱"（pierce the corporate veil）？</p>
+      <p>近年重要判决趋势：</p>
+      <ul>
+        <li>公司独立人格原则仍然是起点，法院不轻易穿透</li>
+        <li>但如果公司被用于欺诈、逃避现有法律义务或作为"纯粹幌子"，法院将穿透公司面纱</li>
+        <li>在信托案件中，如果委托人保留了过度的实际控制权，信托可能被认定为"虚假信托"（sham trust）</li>
+      </ul>
+    </article>
+
+    <aside class="mt-12 p-5 rounded-lg bg-bg-muted border border-border-main text-sm text-text-muted" role="note">
+      <p class="font-sans font-semibold text-text-main mb-2">免责声明</p>
+      <p>本网站所载内容仅供信息参考之用，不构成法律、税务或投资建议。BVI 法律及国际监管规则可能发生变化，读者在做出任何决策前应咨询具备相应资质的专业顾问。</p>
+    </aside>
+  </div>
 </BaseLayout>

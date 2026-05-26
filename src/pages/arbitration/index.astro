@@ -1,7 +1,70 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import PlaceholderPage from '@components/PlaceholderPage.astro';
 ---
-<BaseLayout title="BVI 国际仲裁 | BVI.vg">
-  <PlaceholderPage title="BVI 国际仲裁" description="BVI 国际仲裁中心简介、仲裁规则要点与诉讼-仲裁选择指引。" />
+
+<BaseLayout title="BVI 国际仲裁 | BVI.vg" description="BVI 国际仲裁中心（BVIIAC）简介、仲裁规则要点及仲裁与诉讼的选择比较指南。">
+  <div class="max-w-(--content-max-width) mx-auto px-6 py-10">
+    <nav aria-label="面包屑" class="mb-6">
+      <ol class="flex items-center gap-1.5 text-sm font-sans text-text-muted">
+        <li><a href="/" class="hover:text-primary transition-colors">首页</a></li>
+        <li aria-hidden="true"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li class="text-text-main">国际仲裁</li>
+      </ol>
+    </nav>
+
+    <article class="prose">
+      <span class="inline-block px-3 py-1 rounded-full text-xs font-sans font-medium bg-primary/10 text-primary mb-4">深度参考</span>
+      <h1>BVI 国际仲裁</h1>
+      <p class="text-lg text-text-muted">BVI 作为国际仲裁优选地的制度优势、BVIIAC 仲裁规则要点及实务选择指南。</p>
+
+      <h2>BVI 国际仲裁中心（BVIIAC）</h2>
+      <p>BVI 国际仲裁中心（BVI International Arbitration Centre，简称 BVIIAC）于 2016 年成立，是加勒比地区领先的国际仲裁机构。BVIIAC 提供：</p>
+      <ul>
+        <li>现代化的仲裁规则和案件管理系统</li>
+        <li>设备完善的听证设施</li>
+        <li>国际化的仲裁员名册（涵盖普通法、大陆法背景）</li>
+        <li>紧急仲裁员程序（紧急临时救济）</li>
+      </ul>
+
+      <h2>仲裁规则要点</h2>
+      <p>BVIIAC 仲裁规则于 2021 年修订，核心特点：</p>
+      <ul>
+        <li><strong>简易程序</strong>：争议金额低于 500 万美元的案件适用快速程序，仲裁庭应在 6 个月内作出裁决</li>
+        <li><strong>紧急仲裁员</strong>：在仲裁庭组成前，当事人可申请紧急仲裁员在 14 天内作出临时措施决定</li>
+        <li><strong>电子审理</strong>：全面支持在线审理和电子文件提交</li>
+        <li><strong>费用透明</strong>：按争议金额阶梯收费，提高费用可预测性</li>
+      </ul>
+
+      <h2>BVI 仲裁的法律支撑</h2>
+      <p>BVI 于 2014 年颁布了《仲裁法》（Arbitration Act），以联合国国际贸易法委员会（UNCITRAL）示范法为基础。关键规定：</p>
+      <ul>
+        <li>法院对仲裁的干预限于法律明确规定的范围</li>
+        <li>BVI 法院有义务支持仲裁协议的履行（中止诉讼程序）</li>
+        <li>仲裁裁决可在 BVI 法院直接申请执行，程序简便</li>
+      </ul>
+
+      <h2>仲裁 vs 诉讼：选择指引</h2>
+      <table>
+        <tr><th>维度</th><th>仲裁</th><th>诉讼</th></tr>
+        <tr><td>保密性</td><td>完全保密</td><td>公开审理</td></tr>
+        <tr><td>裁决速度</td><td>6-18 个月</td><td>1-3 年或更长</td></tr>
+        <tr><td>上诉可能</td><td>非常有限</td><td>可逐级上诉</td></tr>
+        <tr><td>国际执行</td><td>纽约公约 170+ 国家</td><td>需双边司法协助</td></tr>
+        <tr><td>费用</td><td>仲裁员+机构费</td><td>法院费（较低）</td></tr>
+        <tr><td>适合场景</td><td>跨境商业纠纷、基金争议</td><td>公司法纠纷、破产清算</td></tr>
+      </table>
+
+      <h2>实务建议</h2>
+      <ul>
+        <li>在股东协议和投资合同中纳入 BVIIAC 仲裁条款</li>
+        <li>明确约定仲裁地（BVI）、仲裁语言（英文）和仲裁员人数</li>
+        <li>对于 SP 之间的争议，可约定专项仲裁程序</li>
+      </ul>
+    </article>
+
+    <aside class="mt-12 p-5 rounded-lg bg-bg-muted border border-border-main text-sm text-text-muted" role="note">
+      <p class="font-sans font-semibold text-text-main mb-2">免责声明</p>
+      <p>本网站所载内容仅供信息参考之用，不构成法律、税务或投资建议。BVI 法律及国际监管规则可能发生变化，读者在做出任何决策前应咨询具备相应资质的专业顾问。</p>
+    </aside>
+  </div>
 </BaseLayout>

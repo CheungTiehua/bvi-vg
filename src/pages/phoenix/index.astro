@@ -1,7 +1,71 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import PlaceholderPage from '@components/PlaceholderPage.astro';
 ---
-<BaseLayout title="凤凰信托 | BVI.vg">
-  <PlaceholderPage title="凤凰信托" description="凤凰信托的定义用途、与VISTA的关系区别及适用场景分析。" />
+
+<BaseLayout title="凤凰信托 | BVI.vg" description="凤凰信托（Phoenix Trust）的定义、用途、与VISTA信托的关系与区别及适用场景分析。">
+  <div class="max-w-(--content-max-width) mx-auto px-6 py-10">
+    <nav aria-label="面包屑" class="mb-6">
+      <ol class="flex items-center gap-1.5 text-sm font-sans text-text-muted">
+        <li><a href="/" class="hover:text-primary transition-colors">首页</a></li>
+        <li aria-hidden="true"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li class="text-text-main">凤凰信托</li>
+      </ol>
+    </nav>
+
+    <article class="prose">
+      <span class="inline-block px-3 py-1 rounded-full text-xs font-sans font-medium bg-primary/10 text-primary mb-4">深度参考</span>
+      <h1>凤凰信托（Phoenix Trust）</h1>
+      <p class="text-lg text-text-muted">凤凰信托的运作原理、法律基础、实际用途及与 VISTA 信托的关系辨析。</p>
+
+      <h2>什么是凤凰信托</h2>
+      <p>凤凰信托（Phoenix Trust）是一个形象的称呼——源自神话中凤凰浴火重生的意象。它的核心设计是：<strong>当原有信托或公司结构因法律、税务或商业原因变得不适用时，信托资产可以"自动转移"到一个备用信托中，实现架构的"重生"。</strong></p>
+
+      <h2>运作原理</h2>
+      <p>凤凰信托通常包含至少两个部分：</p>
+      <ol>
+        <li><strong>主信托</strong>（Primary Trust）——当前正在运行的信托架构</li>
+        <li><strong>备用信托</strong>（Standby Trust）——处于休眠状态的信托，等待触发条件</li>
+      </ol>
+      <p>当触发事件发生时（如法律变更、受益人移民、公司治理危机），主信托中的资产按照预设机制转移至备用信托。整个过程在信托契约中预先规定，无需委托人重新签署文件。</p>
+
+      <h2>法律基础</h2>
+      <p>凤凰信托并非 BVI 法律中单独定义的信托类型，而是基于 BVI 信托法和受托人权力的合同安排。其有效性来源于：</p>
+      <ul>
+        <li><strong>信托契约的预先授权</strong>：在信托设立时即明确资产转移的条件和方式</li>
+        <li><strong>受托人的酌情权</strong>：受托人依据信托契约行使转移权力</li>
+        <li><strong>保护人或指定人的同意权</strong>：重大架构调整须经保护人同意</li>
+      </ul>
+
+      <h2>适用场景</h2>
+      <ul>
+        <li><strong>政治风险应对</strong>：如果委托人所在国政治环境恶化，资产预先配置转移通道</li>
+        <li><strong>税务法规变化</strong>：国际税务规则（如全球最低税率）可能影响现有架构时，提供快速调整机制</li>
+        <li><strong>婚姻风险隔离</strong>：家族后代婚姻变化时，信托资产自动调整受益安排</li>
+        <li><strong>代际传承</strong>：在不同世代之间平滑过渡，避免每次传承都重建架构</li>
+      </ul>
+
+      <h2>与 VISTA 信托的关系与区别</h2>
+      <table>
+        <tr><th>维度</th><th>VISTA 信托</th><th>凤凰信托</th></tr>
+        <tr><td>法律基础</td><td>VISTA 专门法案（成文法）</td><td>合同安排（普通法）</td></tr>
+        <tr><td>核心功能</td><td>控制权保留</td><td>架构应急转移</td></tr>
+        <tr><td>信托财产</td><td>仅限 BVI 公司股权</td><td>各类资产均可</td></tr>
+        <tr><td>触发机制</td><td>介入事件（Intervention Events）</td><td>转移触发事件（Migration Triggers）</td></tr>
+        <tr><td>使用方式</td><td>独立的信托架构</td><td>辅助/应急预案</td></tr>
+      </table>
+
+      <h2>实务注意事项</h2>
+      <ul>
+        <li><strong>反避税审查</strong>：凤凰信托的资产转移可能引起税务机关的关注，须确保有真实商业目的</li>
+        <li><strong>受托人的双重角色</strong>：受托人通常同时担任主信托和备用信托的受托人，须注意利益冲突管理</li>
+        <li><strong>触发条件设计</strong>：触发条件须足够清晰，避免未来产生争议</li>
+        <li><strong>成本考量</strong>：维持两个并行信托架构会产生双倍的年度维护成本</li>
+      </ul>
+    </article>
+
+    <aside class="mt-12 p-5 rounded-lg bg-bg-muted border border-border-main text-sm text-text-muted" role="note">
+      <p class="font-sans font-semibold text-text-main mb-2">免责声明</p>
+      <p>本网站所载内容仅供信息参考之用，不构成法律、税务或投资建议。BVI 法律及国际监管规则可能发生变化，读者在做出任何决策前应咨询具备相应资质的专业顾问。</p>
+    </aside>
+  </div>
 </BaseLayout>
