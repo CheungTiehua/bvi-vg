@@ -25,6 +25,7 @@ type KbChunk = {
   content: string;
 };
 
+const MAX_MESSAGE_CHARS = 800;
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
@@ -79,7 +80,7 @@ function sanitizeMessages(input: unknown): ChatMessage[] {
     .slice(-10)
     .map((message) => ({
       role: message.role,
-      content: message.content.slice(0, 2000),
+      content: message.content.slice(0, MAX_MESSAGE_CHARS),
     }));
 }
 
