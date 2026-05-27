@@ -6,6 +6,7 @@ import BackToTop from '@components/BackToTop.astro';
 import CTABanner from '@components/CTABanner.astro';
 import StructuredData from '@components/StructuredData.astro';
 import BVI20PrevNext from '@components/BVI20PrevNext.astro';
+import AIChatBox from '@components/AIChatBox.astro';
 import '@styles/global.css';
 
 export interface Props {
@@ -44,6 +45,7 @@ const { title, description, image, canonicalURL, noindex } = Astro.props;
     </main>
     <CTABanner />
     <Footer />
+    <AIChatBox />
     <BackToTop />
   </body>
 </html>
