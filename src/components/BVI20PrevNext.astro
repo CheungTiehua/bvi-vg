@@ -1,0 +1,55 @@
+---
+const currentPath = Astro.url.pathname;
+
+const pages = [
+  { href: '/bvi-2-0/', label: 'BVI 2.0 总纲', summary: '合规时代的 BVI：从“藏钱”到“留钱”。' },
+  { href: '/bvi-2-0/myths/', label: '常见误读澄清', summary: '破解市场上关于 BVI 2.0 的恐慌叙事。' },
+  { href: '/bvi-2-0/crs-2/', label: 'CRS 2.0 专题', summary: '理解 CRS 2.0 是什么、不是什么。' },
+  { href: '/bvi-2-0/regulatory-timeline/', label: '法规更新追踪', summary: '2023-2026 年 BVI 监管变化时间轴。' },
+  { href: '/bvi-2-0/b-plus-h/', label: 'B+H 2.0 架构', summary: 'BVI 控股公司 + 香港运营/银行账户。' },
+  { href: '/bvi-2-0/china-connection/', label: '与中国法律衔接', summary: '外汇、税务、CFC、37 号文与 CRS 信息交换。' },
+  { href: '/bvi-2-0/faq/', label: 'BVI 2.0 FAQ', summary: '集中回答 CRS、UBO、FATF、B+H 和中国法律问题。' },
+  { href: '/bvi-2-0/sources/', label: '官方来源', summary: 'BVI、OECD、FATF、EU 与中国官方资料索引。' },
+];
+
+const currentIndex = pages.findIndex((page) => page.href === currentPath);
+const previous = currentIndex > 0 ? pages[currentIndex - 1] : null;
+const next = currentIndex >= 0 && currentIndex < pages.length - 1 ? pages[currentIndex + 1] : null;
+---
+
+{currentIndex >= 0 && (
+  <section class="max-w-(--content-max-width) mx-auto px-6 mt-12 mb-4" aria-label="BVI 2.0 阅读导航">
+    <div class="rounded-2xl border border-border-main bg-bg-elevated p-5 md:p-6">
+      <p class="font-sans text-xs font-semibold tracking-[0.18em] text-secondary-dark mb-4">BVI 2.0 阅读流</p>
+      <div class="grid gap-4 md:grid-cols-2">
+        {previous ? (
+          <a href={previous.href} class="block rounded-xl border border-border-main bg-bg-muted p-4 hover:border-secondary hover:shadow-sm transition-all">
+            <p class="font-sans text-xs text-text-muted mb-2">上一篇</p>
+            <h3 class="font-sans text-lg font-bold text-primary mb-2">{previous.label}</h3>
+            <p class="text-sm text-text-muted leading-relaxed mb-0">{previous.summary}</p>
+          </a>
+        ) : (
+          <div class="rounded-xl border border-border-main bg-bg-muted p-4 opacity-60">
+            <p class="font-sans text-xs text-text-muted mb-2">上一篇</p>
+            <h3 class="font-sans text-lg font-bold text-text-main mb-2">已经是专题起点</h3>
+            <p class="text-sm text-text-muted leading-relaxed mb-0">从总纲开始阅读完整 BVI 2.0 板块。</p>
+          </div>
+        )}
+
+        {next ? (
+          <a href={next.href} class="block rounded-xl border border-border-main bg-bg-muted p-4 hover:border-secondary hover:shadow-sm transition-all md:text-right">
+            <p class="font-sans text-xs text-text-muted mb-2">下一篇</p>
+            <h3 class="font-sans text-lg font-bold text-primary mb-2">{next.label}</h3>
+            <p class="text-sm text-text-muted leading-relaxed mb-0">{next.summary}</p>
+          </a>
+        ) : (
+          <a href="/bvi-2-0/" class="block rounded-xl border border-secondary/40 bg-secondary/10 p-4 hover:border-secondary hover:shadow-sm transition-all md:text-right">
+            <p class="font-sans text-xs text-secondary-dark mb-2">回到起点</p>
+            <h3 class="font-sans text-lg font-bold text-primary mb-2">BVI 2.0 总纲</h3>
+            <p class="text-sm text-text-muted leading-relaxed mb-0">重新查看专题结构和核心结论。</p>
+          </a>
+        )}
+      </div>
+    </div>
+  </section>
+)}
