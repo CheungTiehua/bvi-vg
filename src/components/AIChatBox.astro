@@ -46,6 +46,7 @@
           <input
             id="bvi-chat-input"
             type="text"
+            maxlength="800"
             class="min-w-0 flex-1 rounded-xl border border-border-main bg-bg px-3 py-2 text-sm text-text-main outline-none transition-colors focus:border-secondary disabled:opacity-60"
             placeholder="输入你的问题…"
             autocomplete="off"
@@ -58,6 +59,7 @@
             发送
           </button>
         </div>
+        <p id="bvi-chat-counter" class="mt-1 text-right text-[10px] text-text-muted">0 / 800</p>
       </div>
     </div>
   </section>
@@ -68,12 +70,14 @@
     const root = document.getElementById('bvi-chat');
     if (!root) return;
 
+    const MAX_INPUT_CHARS = 800;
     const toggle = document.getElementById('bvi-chat-toggle');
     const panel = document.getElementById('bvi-chat-panel');
     const close = document.getElementById('bvi-chat-close');
     const messagesEl = document.getElementById('bvi-chat-messages');
     const input = document.getElementById('bvi-chat-input');
     const send = document.getElementById('bvi-chat-send');
+    const counter = document.getElementById('bvi-chat-counter');
     const quickButtons = root.querySelectorAll('[data-bvi-prompt]');
 
     let messages = [];
@@ -87,6 +91,12 @@
 
     function scrollToBottom() {
       messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function updateCounter() {
+      const length = input.value.length;
+      counter.textContent = `${length} / ${MAX_INPUT_CHARS}`;
+      send.disabled = loading || !input.value.trim();
     }
 
     function addBubble(role, content) {
@@ -149,11 +159,13 @@
     }
 
     async function handleSend(text) {
-      const content = (text || input.value).trim();
+      const rawContent = (text || input.value).trim();
+      const content = rawContent.slice(0, MAX_INPUT_CHARS);
       if (!content || loading) return;
 
       setOpen(true);
       input.value = '';
+      updateCounter();
       addBubble('user', content);
       messages.push({ role: 'user', content });
       setLoading(true);
@@ -220,13 +232,14 @@
         assistantBubble.textContent = error && error.message ? error.message : 'AI 助手暂时不可用。';
       } finally {
         setLoading(false);
+        updateCounter();
       }
     }
 
     toggle.addEventListener('click', () => setOpen(panel.classList.contains('hidden')));
     close.addEventListener('click', () => setOpen(false));
     send.addEventListener('click', () => handleSend());
-    input.addEventListener('input', () => { send.disabled = loading || !input.value.trim(); });
+    input.addEventListener('input', updateCounter);
     input.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
         event.preventDefault();
@@ -239,5 +252,6 @@
     });
 
     send.disabled = true;
+    updateCounter();
   })();
 </script>
