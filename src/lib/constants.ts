@@ -20,6 +20,7 @@ export const TOPIC_SHORT: Record<TopicSlug, string> = {
 };
 
 export const PHASE2_TOPICS = [
+  'bvi-2-0',
   'economic',
   'trust',
   'ipo',
@@ -31,6 +32,7 @@ export const PHASE2_TOPICS = [
 ] as const;
 
 export const PHASE2_LABELS: Record<string, string> = {
+  'bvi-2-0': 'BVI 2.0',
   economic: '经济实质法合规',
   trust: '信托综合指南',
   ipo: 'BVI 架构与境外上市',
