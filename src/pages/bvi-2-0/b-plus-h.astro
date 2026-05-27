@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import BVI20SectionNav from '@components/BVI20SectionNav.astro';
 
 const comparisons = [
   ['B+H', '成本低、隐私好、税务优', '不能上市', '家办、财富保全'],
@@ -55,6 +56,8 @@ const compliance = [
       <h1>B+H 2.0架构</h1>
       <p class="lead">B+H = BVI控股公司 + 香港运营/银行账户。这是后VIE时代，家族办公室的标准化配置。不涉及上市，不需要证监会备案，合规成本可控。</p>
 
+      <BVI20SectionNav />
+
       <div class="not-prose rounded-2xl border border-border-main bg-bg-elevated p-6 md:p-8 my-8">
         <p class="font-sans text-sm font-semibold text-secondary-dark mb-3">架构定义</p>
         <h2 class="font-sans text-2xl font-bold text-primary mb-4">BVI做控股，香港做运营。</h2>
@@ -64,25 +67,13 @@ const compliance = [
       <h2>架构图</h2>
       <div class="not-prose rounded-2xl border border-border-main bg-bg-elevated p-6 md:p-8 my-8 text-center">
         <div class="inline-flex flex-col items-center gap-3 text-sm font-sans">
-          <div class="rounded-xl border border-secondary/50 bg-secondary/10 px-6 py-4 min-w-64">
-            <p class="font-semibold text-primary mb-1">家族成员 / 信托</p>
-            <p class="text-xs text-text-muted">控制权与受益安排</p>
-          </div>
+          <div class="rounded-xl border border-secondary/50 bg-secondary/10 px-6 py-4 min-w-64"><p class="font-semibold text-primary mb-1">家族成员 / 信托</p><p class="text-xs text-text-muted">控制权与受益安排</p></div>
           <div class="text-secondary-dark">↓</div>
-          <div class="rounded-xl border border-border-main bg-bg-muted px-6 py-4 min-w-64">
-            <p class="font-semibold text-primary mb-1">BVI公司（控股层）</p>
-            <p class="text-xs text-text-muted">持有全球资产 · 股权隔离 · VISTA信托（可选）</p>
-          </div>
+          <div class="rounded-xl border border-border-main bg-bg-muted px-6 py-4 min-w-64"><p class="font-semibold text-primary mb-1">BVI公司（控股层）</p><p class="text-xs text-text-muted">持有全球资产 · 股权隔离 · VISTA信托（可选）</p></div>
           <div class="text-secondary-dark">↓</div>
-          <div class="rounded-xl border border-border-main bg-bg-muted px-6 py-4 min-w-64">
-            <p class="font-semibold text-primary mb-1">香港公司（运营层）</p>
-            <p class="text-xs text-text-muted">银行账户 · 投资交易 · 合规申报</p>
-          </div>
+          <div class="rounded-xl border border-border-main bg-bg-muted px-6 py-4 min-w-64"><p class="font-semibold text-primary mb-1">香港公司（运营层）</p><p class="text-xs text-text-muted">银行账户 · 投资交易 · 合规申报</p></div>
           <div class="text-secondary-dark">↓</div>
-          <div class="rounded-xl border border-primary/30 bg-primary/5 px-6 py-4 min-w-64">
-            <p class="font-semibold text-primary mb-1">全球资产配置</p>
-            <p class="text-xs text-text-muted">股票 · 基金 · 房产 · 艺术品 · 加密资产</p>
-          </div>
+          <div class="rounded-xl border border-primary/30 bg-primary/5 px-6 py-4 min-w-64"><p class="font-semibold text-primary mb-1">全球资产配置</p><p class="text-xs text-text-muted">股票 · 基金 · 房产 · 艺术品 · 加密资产</p></div>
         </div>
       </div>
 
@@ -96,58 +87,23 @@ const compliance = [
       <h2>B+H vs 其他架构</h2>
       <div class="overflow-x-auto">
         <table>
-          <thead>
-            <tr>
-              <th>架构</th>
-              <th>优势</th>
-              <th>劣势</th>
-              <th>适用场景</th>
-            </tr>
-          </thead>
-          <tbody>
-            {comparisons.map(([structure, advantage, disadvantage, scene]) => (
-              <tr>
-                <td><strong>{structure}</strong></td>
-                <td>{advantage}</td>
-                <td>{disadvantage}</td>
-                <td>{scene}</td>
-              </tr>
-            ))}
-          </tbody>
+          <thead><tr><th>架构</th><th>优势</th><th>劣势</th><th>适用场景</th></tr></thead>
+          <tbody>{comparisons.map(([structure, advantage, disadvantage, scene]) => (<tr><td><strong>{structure}</strong></td><td>{advantage}</td><td>{disadvantage}</td><td>{scene}</td></tr>))}</tbody>
         </table>
       </div>
 
       <h2>B+H的三大功能</h2>
       <div class="not-prose grid gap-5 md:grid-cols-3 my-8">
-        {functions.map((item) => (
-          <div class="rounded-xl border border-border-main bg-bg-elevated p-5">
-            <h3 class="font-sans text-lg font-bold text-primary mb-3">{item.title}</h3>
-            <p class="text-sm text-text-muted leading-relaxed mb-0">{item.text}</p>
-          </div>
-        ))}
+        {functions.map((item) => (<div class="rounded-xl border border-border-main bg-bg-elevated p-5"><h3 class="font-sans text-lg font-bold text-primary mb-3">{item.title}</h3><p class="text-sm text-text-muted leading-relaxed mb-0">{item.text}</p></div>))}
       </div>
 
       <h2>搭建步骤</h2>
-      <ol>
-        {steps.map((step) => <li>{step}</li>)}
-      </ol>
+      <ol>{steps.map((step) => <li>{step}</li>)}</ol>
 
       <h2>B+H的合规要点</h2>
-      <div class="not-prose rounded-xl border border-border-main bg-bg-elevated p-6 my-8">
-        <ul class="space-y-3 m-0 p-0 list-none">
-          {compliance.map((item) => (
-            <li class="flex gap-3 text-sm text-text-muted">
-              <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-secondary text-white text-xs">✓</span>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <div class="not-prose rounded-xl border border-border-main bg-bg-elevated p-6 my-8"><ul class="space-y-3 m-0 p-0 list-none">{compliance.map((item) => (<li class="flex gap-3 text-sm text-text-muted"><span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-secondary text-white text-xs">✓</span><span>{item}</span></li>))}</ul></div>
     </article>
 
-    <aside class="mt-12 p-5 rounded-lg bg-bg-muted border border-border-main text-sm text-text-muted" role="note">
-      <p class="font-sans font-semibold text-text-main mb-2">免责声明</p>
-      <p>本知识库提供通用信息，不构成法律意见。具体架构搭建请咨询BVI持牌律师。</p>
-    </aside>
+    <aside class="mt-12 p-5 rounded-lg bg-bg-muted border border-border-main text-sm text-text-muted" role="note"><p class="font-sans font-semibold text-text-main mb-2">免责声明</p><p>本知识库提供通用信息，不构成法律意见。具体架构搭建请咨询BVI持牌律师。</p></aside>
   </div>
 </BaseLayout>
