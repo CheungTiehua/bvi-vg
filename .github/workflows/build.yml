@@ -27,3 +27,10 @@ jobs:
 
       - name: Build site
         run: npm run build
+
+      - name: Upload built site
+        uses: actions/upload-artifact@v4
+        with:
+          name: bvi-vg-dist
+          path: dist
+          if-no-files-found: error
