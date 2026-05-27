@@ -1,159 +1,59 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import BVI20SectionNav from '@components/BVI20SectionNav.astro';
 
-const upgrades = [
-  '加密资产纳入报告范围',
-  '双重身份不能择一申报',
-  '多层架构穿透至实际控制人',
-];
+const upgrades = ['加密资产纳入报告范围', '双重身份不能择一申报', '多层架构穿透至实际控制人'];
 
 const panicRows = [
-  ['我的BVI公司要被查了', '信息交换≠税务稽查。税务机关取得信息后，是否进一步处理取决于是否存在逃税、漏税或申报不一致线索。'],
-  ['我要补税了', 'CRS 2.0不是新税种，也不自动产生补税义务。它改变的是信息可见性，不直接改变税收规则。'],
+  ['我的BVI公司要被查了', '信息交换不是税务稽查。税务机关取得信息后，是否进一步处理取决于是否存在申报不一致、资金来源不清或其他具体线索。'],
+  ['我要补税了', 'CRS 2.0不是新税种，也不会自动产生补税义务。它改变的是信息可见性，不直接改变税收规则。'],
   ['双重身份会被罚', '如实申报即可。CRS不改变税收管辖权，也不把身份问题自动转化为处罚。'],
   ['加密资产藏不住了', '合规持有本就不该“藏”。CRS 2.0的重点是把加密资产纳入税务透明框架。'],
   ['历史信息会被翻旧账', 'CRS 2.0从2026年开始按新标准收集和报告信息，核心不是无限追溯历史。'],
 ];
 
-const checklist = [
-  '确认BVI公司的税务居民身份（通常是BVI或无）',
-  '如税务居民为中国/香港，确认已如实申报',
-  '确保UBO信息已通过注册代理备案',
-  '如持有加密资产，确认托管平台已纳入CRS 2.0申报',
-];
+const checklist = ['确认BVI公司的税务居民身份', '确认相关申报口径一致', '确保UBO信息已通过注册代理备案', '如持有加密资产，确认托管平台申报安排'];
 
 const faqs = [
-  {
-    q: '我是中国税务居民，BVI公司需要向中国报税吗？',
-    a: '是否需要申报，取决于BVI公司的收入性质、控制关系、资金来源、利润是否分配，以及中国税法下的具体适用规则。CRS信息交换本身不是报税义务，但会提高信息一致性的要求。',
-  },
-  {
-    q: 'BVI公司的资本利得需要在中国缴税吗？',
-    a: '应结合个人税务居民身份、所得性质、交易主体、资产来源和中国税法规则判断。BVI公司是否产生中国税务影响，不能只看注册地。',
-  },
-  {
-    q: '我的BVI信托会被CRS穿透吗？',
-    a: 'CRS框架下，金融机构通常需要识别信托相关的委托人、受托人、保护人、受益人及实际控制人。穿透识别用于税务信息交换，不等于信托资产隔离功能失效。',
-  },
-  {
-    q: '2025年以前的信息会被交换吗？',
-    a: 'CRS 2.0的新规则自2026年开始适用。具体报告年度、首次提交时间和信息范围，应以BVI ITA及相关金融机构执行口径为准。',
-  },
-  {
-    q: '如果不申报会有什么后果？',
-    a: '风险主要来自信息不一致、KYC失败、账户限制、税务问询及潜在处罚。BVI 2.0时代的核心不是回避申报，而是让架构、资金和身份信息彼此一致。',
-  },
-  {
-    q: 'BVI和香港的CRS 2.0落地时间差怎么处理？',
-    a: '应分别确认BVI实体、香港公司、银行账户和托管平台各自适用的申报义务。B+H架构下，香港运营层和BVI控股层需要分层看待。',
-  },
+  ['我是中国税务居民，BVI公司需要向中国报税吗？', '是否需要申报，取决于BVI公司的收入性质、控制关系、资金来源、利润是否分配，以及中国税法下的具体适用规则。'],
+  ['BVI公司的资本利得需要在中国缴税吗？', '应结合个人税务居民身份、所得性质、交易主体、资产来源和中国税法规则判断。'],
+  ['我的BVI信托会被CRS穿透吗？', 'CRS框架下，金融机构通常需要识别信托相关控制人与受益人。穿透识别用于税务信息交换，不等于信托资产隔离功能失效。'],
+  ['2025年以前的信息会被交换吗？', 'CRS 2.0的新规则自2026年开始适用。具体报告年度、首次提交时间和信息范围，应以实际执行口径为准。'],
+  ['如果不申报会有什么后果？', '风险主要来自信息不一致、KYC失败、账户限制、税务问询及潜在处罚。'],
+  ['BVI和香港的CRS 2.0落地时间差怎么处理？', '应分别确认BVI实体、香港公司、银行账户和托管平台各自适用的申报义务。'],
 ];
 ---
 
 <BaseLayout title="CRS 2.0专题 | BVI 2.0 | BVI.vg" description="CRS 2.0不是新税种，不是全球征税，也不是自动补税。理解BVI公司、信托和加密资产在CRS 2.0下的合规逻辑。">
   <div class="max-w-(--content-max-width) mx-auto px-6 py-10">
-    <nav aria-label="面包屑" class="mb-6">
-      <ol class="flex items-center gap-1.5 text-sm font-sans text-text-muted">
-        <li><a href="/" class="hover:text-primary transition-colors">首页</a></li>
-        <li aria-hidden="true"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
-        <li><a href="/bvi-2-0/" class="hover:text-primary transition-colors">BVI 2.0</a></li>
-        <li aria-hidden="true"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
-        <li class="text-text-main">CRS 2.0专题</li>
-      </ol>
-    </nav>
+    <nav aria-label="面包屑" class="mb-6"><ol class="flex items-center gap-1.5 text-sm font-sans text-text-muted"><li><a href="/" class="hover:text-primary transition-colors">首页</a></li><li aria-hidden="true"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li><li><a href="/bvi-2-0/" class="hover:text-primary transition-colors">BVI 2.0</a></li><li aria-hidden="true"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li><li class="text-text-main">CRS 2.0专题</li></ol></nav>
 
     <article class="prose">
       <span class="inline-block px-3 py-1 rounded-full text-xs font-sans font-medium bg-secondary/10 text-secondary-dark mb-4">BVI 2.0 · P1</span>
       <h1>CRS 2.0专题</h1>
       <p class="lead">CRS 2.0对合法商人几乎没影响。恐慌是多余的。真正需要做的是把身份、资金、账户、架构和申报口径统一起来。</p>
 
+      <BVI20SectionNav />
+
       <h2>CRS 2.0是什么</h2>
-      <div class="not-prose rounded-2xl border border-border-main bg-bg-elevated p-6 md:p-8 my-8">
-        <p class="font-sans text-sm font-semibold text-secondary-dark mb-3">一句话定义</p>
-        <h2 class="font-sans text-2xl font-bold text-primary mb-4">CRS 2.0 = 共同汇报标准的第二次修订版</h2>
-        <p class="text-text-muted leading-relaxed mb-4">生效时间：2026年1月1日。核心目标：堵塞初代CRS的漏洞。</p>
-        <div class="grid gap-3 md:grid-cols-3">
-          {upgrades.map((upgrade) => (
-            <div class="rounded-lg bg-bg-muted p-4">
-              <p class="font-sans text-sm font-semibold text-text-main mb-0">{upgrade}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+      <div class="not-prose rounded-2xl border border-border-main bg-bg-elevated p-6 md:p-8 my-8"><p class="font-sans text-sm font-semibold text-secondary-dark mb-3">一句话定义</p><h2 class="font-sans text-2xl font-bold text-primary mb-4">CRS 2.0 = 共同汇报标准的第二次修订版</h2><p class="text-text-muted leading-relaxed mb-4">生效时间：2026年1月1日。核心目标：堵塞初代CRS的漏洞。</p><div class="grid gap-3 md:grid-cols-3">{upgrades.map((upgrade) => (<div class="rounded-lg bg-bg-muted p-4"><p class="font-sans text-sm font-semibold text-text-main mb-0">{upgrade}</p></div>))}</div></div>
 
       <h2>CRS 2.0不是什么</h2>
-      <div class="not-prose grid gap-4 md:grid-cols-2 my-8">
-        <div class="rounded-xl border border-border-main bg-bg-elevated p-5">
-          <p class="font-sans font-semibold text-accent mb-2">❌ 不是新税种</p>
-          <p class="text-sm text-text-muted leading-relaxed mb-0">它不直接创造新的税种。</p>
-        </div>
-        <div class="rounded-xl border border-border-main bg-bg-elevated p-5">
-          <p class="font-sans font-semibold text-accent mb-2">❌ 不是全球征税</p>
-          <p class="text-sm text-text-muted leading-relaxed mb-0">它不直接改变各国税收管辖权。</p>
-        </div>
-        <div class="rounded-xl border border-border-main bg-bg-elevated p-5">
-          <p class="font-sans font-semibold text-accent mb-2">❌ 不是自动补税</p>
-          <p class="text-sm text-text-muted leading-relaxed mb-0">信息交换不等于自动产生补税义务。</p>
-        </div>
-        <div class="rounded-xl border border-secondary/40 bg-secondary/10 p-5">
-          <p class="font-sans font-semibold text-primary mb-2">✅ 只是信息交换框架</p>
-          <p class="text-sm text-text-muted leading-relaxed mb-0">它的核心是金融账户和控制人信息的自动交换。</p>
-        </div>
-      </div>
+      <div class="not-prose grid gap-4 md:grid-cols-2 my-8"><div class="rounded-xl border border-border-main bg-bg-elevated p-5"><p class="font-sans font-semibold text-accent mb-2">不是新税种</p><p class="text-sm text-text-muted leading-relaxed mb-0">它不直接创造新的税种。</p></div><div class="rounded-xl border border-border-main bg-bg-elevated p-5"><p class="font-sans font-semibold text-accent mb-2">不是全球征税</p><p class="text-sm text-text-muted leading-relaxed mb-0">它不直接改变各国税收管辖权。</p></div><div class="rounded-xl border border-border-main bg-bg-elevated p-5"><p class="font-sans font-semibold text-accent mb-2">不是自动补税</p><p class="text-sm text-text-muted leading-relaxed mb-0">信息交换不等于自动产生补税义务。</p></div><div class="rounded-xl border border-secondary/40 bg-secondary/10 p-5"><p class="font-sans font-semibold text-primary mb-2">只是信息交换框架</p><p class="text-sm text-text-muted leading-relaxed mb-0">它的核心是金融账户和控制人信息的自动交换。</p></div></div>
 
       <h2>“对合法商人几乎没影响”——逐条解释</h2>
-      <div class="overflow-x-auto">
-        <table>
-          <thead>
-            <tr>
-              <th>恐慌点</th>
-              <th>真相</th>
-            </tr>
-          </thead>
-          <tbody>
-            {panicRows.map(([panic, truth]) => (
-              <tr>
-                <td><strong>“{panic}”</strong></td>
-                <td>{truth}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <div class="overflow-x-auto"><table><thead><tr><th>恐慌点</th><th>真相</th></tr></thead><tbody>{panicRows.map(([panic, truth]) => (<tr><td><strong>“{panic}”</strong></td><td>{truth}</td></tr>))}</tbody></table></div>
 
       <h2>BVI公司CRS合规清单</h2>
-      <div class="not-prose rounded-xl border border-border-main bg-bg-elevated p-6 my-8">
-        <ul class="space-y-3 m-0 p-0 list-none">
-          {checklist.map((item) => (
-            <li class="flex gap-3 text-sm text-text-muted">
-              <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-secondary text-white text-xs">✓</span>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <div class="not-prose rounded-xl border border-border-main bg-bg-elevated p-6 my-8"><ul class="space-y-3 m-0 p-0 list-none">{checklist.map((item) => (<li class="flex gap-3 text-sm text-text-muted"><span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-secondary text-white text-xs">✓</span><span>{item}</span></li>))}</ul></div>
 
       <h2>FAQ</h2>
-      <div class="not-prose space-y-4 my-8">
-        {faqs.map((faq) => (
-          <details class="rounded-xl border border-border-main bg-bg-elevated p-5">
-            <summary class="cursor-pointer font-sans font-semibold text-text-main">{faq.q}</summary>
-            <p class="text-sm text-text-muted leading-relaxed mt-4 mb-0">{faq.a}</p>
-          </details>
-        ))}
-      </div>
+      <div class="not-prose space-y-4 my-8">{faqs.map(([q, a]) => (<details class="rounded-xl border border-border-main bg-bg-elevated p-5"><summary class="cursor-pointer font-sans font-semibold text-text-main">{q}</summary><p class="text-sm text-text-muted leading-relaxed mt-4 mb-0">{a}</p></details>))}</div>
 
       <h2>延伸阅读</h2>
-      <ul>
-        <li>OECD CRS 2.0立法原文</li>
-        <li>BVI FSC / BVI ITA CRS申报指南</li>
-        <li>中国CRS实施法规与国家税务总局公开资料</li>
-      </ul>
+      <ul><li><a href="/bvi-2-0/sources/">官方来源</a>：OECD、BVI FSC / BVI ITA 与中国官方资料索引。</li></ul>
     </article>
 
-    <aside class="mt-12 p-5 rounded-lg bg-bg-muted border border-border-main text-sm text-text-muted" role="note">
-      <p class="font-sans font-semibold text-text-main mb-2">免责声明</p>
-      <p>本知识库提供通用信息，不构成法律意见。具体架构搭建请咨询BVI持牌律师。</p>
-    </aside>
+    <aside class="mt-12 p-5 rounded-lg bg-bg-muted border border-border-main text-sm text-text-muted" role="note"><p class="font-sans font-semibold text-text-main mb-2">免责声明</p><p>本知识库提供通用信息，不构成法律意见。具体架构搭建请咨询BVI持牌律师。</p></aside>
   </div>
 </BaseLayout>
