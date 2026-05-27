@@ -5,6 +5,7 @@ import Footer from '@components/Footer.astro';
 import BackToTop from '@components/BackToTop.astro';
 import CTABanner from '@components/CTABanner.astro';
 import StructuredData from '@components/StructuredData.astro';
+import BVI20PrevNext from '@components/BVI20PrevNext.astro';
 import '@styles/global.css';
 
 export interface Props {
@@ -39,6 +40,7 @@ const { title, description, image, canonicalURL, noindex } = Astro.props;
     <Navigation />
     <main class="flex-1">
       {Astro.slots && <slot />}
+      <BVI20PrevNext />
     </main>
     <CTABanner />
     <Footer />
