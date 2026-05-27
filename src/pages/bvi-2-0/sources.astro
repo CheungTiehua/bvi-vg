@@ -6,30 +6,117 @@ const sourceGroups = [
   {
     title: 'BVI 官方机构',
     items: [
-      'BVI Financial Services Commission (FSC)',
-      'BVI International Tax Authority (ITA)',
-      'BVI Government',
+      {
+        name: 'BVI Financial Services Commission (FSC)',
+        note: '金融服务监管、公司注册、注册代理人、受监管实体、受益所有权与金融服务法规。',
+        url: 'https://www.bvifsc.vg/',
+        display: 'bvifsc.vg',
+      },
+      {
+        name: 'BVI International Tax Authority (ITA)',
+        note: 'CRS、FATCA、经济实质、CbCR 与国际税务信息交换。',
+        url: 'https://bviita.vg/',
+        display: 'bviita.vg',
+      },
+      {
+        name: 'BVI Government',
+        note: 'BVI 政府公告、公共政策、政府部门与官方新闻。',
+        url: 'https://www.gov.vg/',
+        display: 'gov.vg',
+      },
+    ],
+  },
+  {
+    title: '香港相关机构',
+    items: [
+      {
+        name: 'Companies Registry 公司注册处',
+        note: '香港公司注册、周年申报、公司查册与公司注册相关资料。',
+        url: 'https://www.cr.gov.hk/',
+        display: 'cr.gov.hk',
+      },
+      {
+        name: 'Inland Revenue Department 税务局',
+        note: '香港利得税、薪俸税、印花税、商业登记与税务公告。',
+        url: 'https://www.ird.gov.hk/',
+        display: 'ird.gov.hk',
+      },
+      {
+        name: 'Hong Kong Monetary Authority 金融管理局',
+        note: '银行体系、金融监管、货币与支付基础设施资料。',
+        url: 'https://www.hkma.gov.hk/',
+        display: 'hkma.gov.hk',
+      },
+      {
+        name: 'Securities and Futures Commission 证监会',
+        note: '证券、期货、资产管理、持牌机构和投资产品监管资料。',
+        url: 'https://www.sfc.hk/',
+        display: 'sfc.hk',
+      },
+    ],
+  },
+  {
+    title: '中国内地相关机构',
+    items: [
+      {
+        name: '国家税务总局',
+        note: '中国税收政策、税务公告、政策法规、纳税服务与税务解读。',
+        url: 'https://www.chinatax.gov.cn/',
+        display: 'chinatax.gov.cn',
+      },
+      {
+        name: '国家外汇管理局',
+        note: '外汇管理、资本项目、跨境资金流动与外汇政策资料。',
+        url: 'https://www.safe.gov.cn/',
+        display: 'safe.gov.cn',
+      },
+      {
+        name: '国家发展和改革委员会',
+        note: '境外投资宏观管理、项目备案核准相关政策资料。',
+        url: 'https://www.ndrc.gov.cn/',
+        display: 'ndrc.gov.cn',
+      },
+      {
+        name: '商务部',
+        note: '对外投资合作、ODI 相关政策和境外投资管理资料。',
+        url: 'https://www.mofcom.gov.cn/',
+        display: 'mofcom.gov.cn',
+      },
+      {
+        name: '中国证券监督管理委员会',
+        note: '境外上市备案、证券监管、上市公司和资本市场监管资料。',
+        url: 'https://www.csrc.gov.cn/',
+        display: 'csrc.gov.cn',
+      },
     ],
   },
   {
     title: '国际监管与税务透明',
     items: [
-      'OECD 自动信息交换与 CRS / CARF 资料',
-      'FATF 加强监控司法管辖区资料',
-      'EU Council 税务非合作管辖名单资料',
-    ],
-  },
-  {
-    title: '中国相关官方资料',
-    items: [
-      '国家税务总局公开资料',
-      '国家外汇管理局公开资料',
+      {
+        name: 'OECD — Tax Transparency / CRS / CARF',
+        note: 'CRS、加密资产报告框架、自动信息交换与国际税务透明标准。',
+        url: 'https://www.oecd.org/tax/exchange-of-tax-information/',
+        display: 'oecd.org',
+      },
+      {
+        name: 'FATF — Financial Action Task Force',
+        note: '反洗钱、反恐融资国际标准和加强监控司法管辖区名单。',
+        url: 'https://www.fatf-gafi.org/',
+        display: 'fatf-gafi.org',
+      },
+      {
+        name: 'EU Council — EU list of non-cooperative jurisdictions',
+        note: '欧盟税务非合作司法管辖区名单与相关政策说明。',
+        url: 'https://www.consilium.europa.eu/en/policies/eu-list-of-non-cooperative-jurisdictions/',
+        display: 'consilium.europa.eu',
+      },
     ],
   },
 ];
 ---
 
-<BaseLayout title="官方来源 | BVI 2.0 | BVI.vg" description="BVI 2.0 官方来源导航：BVI 官方机构、国际监管机构与中国税务外汇公开资料。">
+<BaseLayout title="官方来源 | BVI 2.0 | BVI.vg" description="BVI 2.0 官方来源导航：BVI、香港、中国内地与国际监管机构入口，帮助用户避免误入假站或代理站。">
   <div class="max-w-(--content-max-width) mx-auto px-6 py-10">
     <nav aria-label="面包屑" class="mb-6">
       <ol class="flex items-center gap-1.5 text-sm font-sans text-text-muted">
@@ -44,22 +131,28 @@ const sourceGroups = [
     <article class="prose">
       <span class="inline-block px-3 py-1 rounded-full text-xs font-sans font-medium bg-secondary/10 text-secondary-dark mb-4">BVI 2.0 · Sources</span>
       <h1>官方来源</h1>
-      <p class="lead">BVI 2.0 板块以公开官方资料为基础。本页汇总后续维护中最常用的官方来源类别，便于核验法规、公告与国际监管状态。</p>
+      <p class="lead">涉及 BVI、香港、中国内地和国际监管的信息，优先从官方机构核验。本页只收录官方或国际组织入口，不收录商业中介、广告站或代理站。</p>
 
       <BVI20SectionNav />
 
-      <div class="not-prose space-y-6 my-8">
+      <div class="not-prose rounded-xl border border-secondary/30 bg-secondary/10 p-5 my-8">
+        <p class="font-sans font-semibold text-primary mb-2">防误入假站提醒</p>
+        <p class="text-sm text-text-muted leading-relaxed mb-0">搜索引擎结果中可能混有广告站、代理站或仿冒页面。涉及注册、查册、税务、外汇、银行监管或上市备案时，应从本页列出的官方域名进入。</p>
+      </div>
+
+      <div class="not-prose space-y-8 my-8">
         {sourceGroups.map((group) => (
-          <section class="rounded-xl border border-border-main bg-bg-elevated p-6">
-            <h2 class="font-sans text-xl font-bold text-primary mb-4">{group.title}</h2>
-            <ul class="m-0 p-0 list-none space-y-2">
+          <section>
+            <h2 class="font-sans text-2xl font-bold text-primary mb-4">{group.title}</h2>
+            <div class="grid gap-4 md:grid-cols-2">
               {group.items.map((item) => (
-                <li class="flex gap-2 text-sm text-text-muted">
-                  <span class="text-secondary-dark">•</span>
-                  <span>{item}</span>
-                </li>
+                <a href={item.url} target="_blank" rel="noopener noreferrer" class="block rounded-xl border border-border-main bg-bg-elevated p-5 hover:border-secondary hover:shadow-md transition-all">
+                  <h3 class="font-sans text-lg font-bold text-text-main mb-2">{item.name}</h3>
+                  <p class="text-sm text-text-muted leading-relaxed mb-3">{item.note}</p>
+                  <p class="font-sans text-xs text-secondary-dark break-all">{item.display}</p>
+                </a>
               ))}
-            </ul>
+            </div>
           </section>
         ))}
       </div>
@@ -67,8 +160,9 @@ const sourceGroups = [
       <h2>维护原则</h2>
       <ul>
         <li>涉及 BVI 法规状态时，优先核验 BVI FSC、BVI ITA 与 BVI Government。</li>
+        <li>涉及香港公司、税务、银行和证券监管时，优先核验香港公司注册处、税务局、金管局与证监会。</li>
+        <li>涉及中国税务、外汇、ODI 和境外上市备案时，优先核验国家税务总局、国家外汇管理局、发改委、商务部与证监会。</li>
         <li>涉及 CRS、CARF、FATF 与欧盟名单时，优先核验 OECD、FATF 与 EU Council。</li>
-        <li>涉及中国税务和外汇问题时，优先核验国家税务总局和国家外汇管理局公开资料。</li>
       </ul>
     </article>
 
