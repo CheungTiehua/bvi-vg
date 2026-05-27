@@ -20,7 +20,7 @@
       <header class="flex items-start justify-between bg-primary px-5 py-4 text-white">
         <div>
           <h2 class="text-sm font-semibold">BVI AI 助手</h2>
-          <p class="mt-1 text-xs text-white/70">基于 BVI.vg 知识库 · DeepSeek + Tavily</p>
+          <p class="mt-1 text-xs text-white/70">优先检索 BVI.vg 知识库 · DeepSeek + Tavily</p>
         </div>
         <button id="bvi-chat-close" type="button" class="rounded-md p-1 text-white/70 hover:bg-white/10 hover:text-white" aria-label="关闭 BVI AI 助手">
           <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
@@ -30,12 +30,13 @@
       <div id="bvi-chat-messages" class="flex-1 space-y-4 overflow-y-auto px-4 py-4 text-sm">
         <div class="flex justify-start">
           <div class="max-w-[86%] rounded-2xl rounded-bl-md bg-bg-muted px-4 py-2.5 text-text-main">
-            你好。我可以帮你理解 BVI 2.0、CRS、UBO、B+H 架构、VISTA 信托和中国法律衔接。请直接提问。
+            你好。我可以帮你理解 BVI 2.0、CRS、UBO、B+H 架构、VISTA 信托和中国法律衔接。仅供一般信息参考，不构成法律、税务或投资意见。
           </div>
         </div>
       </div>
 
       <div class="border-t border-border-main px-4 py-3">
+        <p class="mb-2 text-[11px] leading-relaxed text-text-muted">AI 回答仅作知识库检索和一般说明；具体架构、税务、外汇、开户或信托安排请咨询持牌专业人士。</p>
         <div class="mb-2 flex flex-wrap gap-2 text-xs">
           <button type="button" data-bvi-prompt="CRS 2.0 对 BVI 公司有什么影响？" class="rounded-full bg-bg-muted px-3 py-1 text-text-muted hover:text-primary">CRS 2.0</button>
           <button type="button" data-bvi-prompt="B+H 架构适合什么人？" class="rounded-full bg-bg-muted px-3 py-1 text-text-muted hover:text-primary">B+H</button>
