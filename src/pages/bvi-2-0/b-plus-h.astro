@@ -1,0 +1,153 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const comparisons = [
+  ['B+H', '成本低、隐私好、税务优', '不能上市', '家办、财富保全'],
+  ['BVI+开曼+H', '可上市', '成本高、合规重、备案难', '拟上市企业'],
+  ['纯H股', '无境外架构', '无资产隔离', '已上市/不需求'],
+  ['纯新加坡', '免税政策好', '合规成本高、公开查册', '东南亚布局'],
+];
+
+const functions = [
+  {
+    title: '资产持有',
+    text: 'BVI可持有股票、基金、房产、艺术品、加密资产等全球资产，用作家族财富的控股层与隔离层。',
+  },
+  {
+    title: '资金通道',
+    text: '香港账户承担多币种自由兑换、跨境收付、投资交易和银行关系维护功能。',
+  },
+  {
+    title: '合规申报',
+    text: '香港公司负责运营层申报与银行KYC，BVI公司作为控股层承担相对轻量的备案与年度维护。',
+  },
+];
+
+const steps = [
+  '注册BVI公司（选择注册代理人）',
+  '注册香港公司（可用BVI作为股东）',
+  '开立香港银行账户（需KYC审核）',
+  '可选：设立BVI VISTA信托',
+];
+
+const compliance = [
+  'BVI公司需完成UBO申报（10%门槛）',
+  'BVI公司需提交FAR年报（不公开）',
+  '香港公司需正常年审、报税',
+  '如涉及境内资金出境，需ODI备案',
+];
+---
+
+<BaseLayout title="B+H 2.0架构 | BVI 2.0 | BVI.vg" description="B+H = BVI控股公司 + 香港运营/银行账户。后VIE时代，家族办公室的标准化跨境资产保全配置。">
+  <div class="max-w-(--content-max-width) mx-auto px-6 py-10">
+    <nav aria-label="面包屑" class="mb-6">
+      <ol class="flex items-center gap-1.5 text-sm font-sans text-text-muted">
+        <li><a href="/" class="hover:text-primary transition-colors">首页</a></li>
+        <li aria-hidden="true"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li><a href="/bvi-2-0/" class="hover:text-primary transition-colors">BVI 2.0</a></li>
+        <li aria-hidden="true"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li class="text-text-main">B+H 2.0架构</li>
+      </ol>
+    </nav>
+
+    <article class="prose">
+      <span class="inline-block px-3 py-1 rounded-full text-xs font-sans font-medium bg-secondary/10 text-secondary-dark mb-4">BVI 2.0 · P2</span>
+      <h1>B+H 2.0架构</h1>
+      <p class="lead">B+H = BVI控股公司 + 香港运营/银行账户。这是后VIE时代，家族办公室的标准化配置。不涉及上市，不需要证监会备案，合规成本可控。</p>
+
+      <div class="not-prose rounded-2xl border border-border-main bg-bg-elevated p-6 md:p-8 my-8">
+        <p class="font-sans text-sm font-semibold text-secondary-dark mb-3">架构定义</p>
+        <h2 class="font-sans text-2xl font-bold text-primary mb-4">BVI做控股，香港做运营。</h2>
+        <p class="text-text-muted leading-relaxed mb-0">BVI承担股权隔离、资产持有与家族控制功能；香港承担银行账户、交易执行、运营申报和外部商业界面。两者组合，形成轻量但完整的家办跨境架构。</p>
+      </div>
+
+      <h2>架构图</h2>
+      <div class="not-prose rounded-2xl border border-border-main bg-bg-elevated p-6 md:p-8 my-8 text-center">
+        <div class="inline-flex flex-col items-center gap-3 text-sm font-sans">
+          <div class="rounded-xl border border-secondary/50 bg-secondary/10 px-6 py-4 min-w-64">
+            <p class="font-semibold text-primary mb-1">家族成员 / 信托</p>
+            <p class="text-xs text-text-muted">控制权与受益安排</p>
+          </div>
+          <div class="text-secondary-dark">↓</div>
+          <div class="rounded-xl border border-border-main bg-bg-muted px-6 py-4 min-w-64">
+            <p class="font-semibold text-primary mb-1">BVI公司（控股层）</p>
+            <p class="text-xs text-text-muted">持有全球资产 · 股权隔离 · VISTA信托（可选）</p>
+          </div>
+          <div class="text-secondary-dark">↓</div>
+          <div class="rounded-xl border border-border-main bg-bg-muted px-6 py-4 min-w-64">
+            <p class="font-semibold text-primary mb-1">香港公司（运营层）</p>
+            <p class="text-xs text-text-muted">银行账户 · 投资交易 · 合规申报</p>
+          </div>
+          <div class="text-secondary-dark">↓</div>
+          <div class="rounded-xl border border-primary/30 bg-primary/5 px-6 py-4 min-w-64">
+            <p class="font-semibold text-primary mb-1">全球资产配置</p>
+            <p class="text-xs text-text-muted">股票 · 基金 · 房产 · 艺术品 · 加密资产</p>
+          </div>
+        </div>
+      </div>
+
+      <h2>为什么是B+H？</h2>
+      <ul>
+        <li><strong>BVI做控股：</strong>成本低、隐私好、资产隔离强。</li>
+        <li><strong>香港做运营：</strong>银行账户方便、多币种自由、税务优惠。</li>
+        <li><strong>两者结合：</strong>控股层与运营层分离，1+1&gt;2。</li>
+      </ul>
+
+      <h2>B+H vs 其他架构</h2>
+      <div class="overflow-x-auto">
+        <table>
+          <thead>
+            <tr>
+              <th>架构</th>
+              <th>优势</th>
+              <th>劣势</th>
+              <th>适用场景</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparisons.map(([structure, advantage, disadvantage, scene]) => (
+              <tr>
+                <td><strong>{structure}</strong></td>
+                <td>{advantage}</td>
+                <td>{disadvantage}</td>
+                <td>{scene}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h2>B+H的三大功能</h2>
+      <div class="not-prose grid gap-5 md:grid-cols-3 my-8">
+        {functions.map((item) => (
+          <div class="rounded-xl border border-border-main bg-bg-elevated p-5">
+            <h3 class="font-sans text-lg font-bold text-primary mb-3">{item.title}</h3>
+            <p class="text-sm text-text-muted leading-relaxed mb-0">{item.text}</p>
+          </div>
+        ))}
+      </div>
+
+      <h2>搭建步骤</h2>
+      <ol>
+        {steps.map((step) => <li>{step}</li>)}
+      </ol>
+
+      <h2>B+H的合规要点</h2>
+      <div class="not-prose rounded-xl border border-border-main bg-bg-elevated p-6 my-8">
+        <ul class="space-y-3 m-0 p-0 list-none">
+          {compliance.map((item) => (
+            <li class="flex gap-3 text-sm text-text-muted">
+              <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-secondary text-white text-xs">✓</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </article>
+
+    <aside class="mt-12 p-5 rounded-lg bg-bg-muted border border-border-main text-sm text-text-muted" role="note">
+      <p class="font-sans font-semibold text-text-main mb-2">免责声明</p>
+      <p>本知识库提供通用信息，不构成法律意见。具体架构搭建请咨询BVI持牌律师。</p>
+    </aside>
+  </div>
+</BaseLayout>
