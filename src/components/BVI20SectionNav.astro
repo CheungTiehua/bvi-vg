@@ -1,0 +1,31 @@
+---
+const currentPath = Astro.url.pathname;
+
+const sections = [
+  { href: '/bvi-2-0/', label: '总纲' },
+  { href: '/bvi-2-0/myths/', label: '误读澄清' },
+  { href: '/bvi-2-0/crs-2/', label: 'CRS 2.0' },
+  { href: '/bvi-2-0/regulatory-timeline/', label: '法规时间轴' },
+  { href: '/bvi-2-0/b-plus-h/', label: 'B+H 架构' },
+  { href: '/bvi-2-0/china-connection/', label: '中国法律衔接' },
+  { href: '/bvi-2-0/sources/', label: '官方来源' },
+];
+---
+
+<nav class="not-prose my-8 rounded-2xl border border-border-main bg-bg-elevated p-4" aria-label="BVI 2.0 专题导航">
+  <p class="font-sans text-xs font-semibold tracking-[0.18em] text-secondary-dark mb-3">BVI 2.0 专题导航</p>
+  <div class="flex flex-wrap gap-2">
+    {sections.map((section) => {
+      const isCurrent = currentPath === section.href;
+      return (
+        <a
+          href={section.href}
+          aria-current={isCurrent ? 'page' : undefined}
+          class={`inline-flex rounded-full px-3 py-1.5 text-sm font-sans transition-colors ${isCurrent ? 'bg-primary text-white' : 'bg-bg-muted text-text-muted hover:bg-secondary/10 hover:text-primary'}`}
+        >
+          {section.label}
+        </a>
+      );
+    })}
+  </div>
+</nav>
