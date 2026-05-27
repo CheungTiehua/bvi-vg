@@ -1,0 +1,156 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const frameworks = [
+  {
+    title: '外汇管理',
+    items: ['ODI备案（企业）', '37号文登记（个人）', '境内资金出境路径合规'],
+  },
+  {
+    title: '税务规则',
+    items: ['个人所得税反避税条款', '受控外国企业（CFC）规则', '实际管理机构与税务居民判断'],
+  },
+  {
+    title: '跨境数据',
+    items: ['CRS信息交换', '金融账户信息一致性', '税务居民身份与控制人识别'],
+  },
+];
+
+const faqs = [
+  {
+    q: '中国税务居民持有BVI公司，需要向中国申报吗？',
+    a: '需要结合持有方式、收入性质、是否分配、是否构成控制、资金来源和中国税法适用规则判断。CRS交换提高的是信息透明度，不等同于自动征税。',
+  },
+  {
+    q: 'BVI公司的利润什么时候需要在中国缴税？',
+    a: '核心看利润是否分配、股东身份、是否触发CFC规则、是否存在实际管理机构在中国等因素。不能只凭BVI注册地判断税负。',
+  },
+  {
+    q: '什么是CFC规则？对BVI公司有什么影响？',
+    a: 'CFC规则关注中国居民通过低税地区受控实体累积利润、延迟纳税的安排。如果中国居民控制BVI公司且利润长期不分配，可能需要评估CFC影响。',
+  },
+  {
+    q: '37号文没登记，现在还能补吗？',
+    a: '补登记可行性取决于历史资金路径、交易文件、银行记录、股权变更和当地外汇管理口径。通常需要由专业顾问逐案判断。',
+  },
+  {
+    q: 'CRS交换后，中国税务局会主动查税吗？',
+    a: 'CRS信息交换本身不是稽查结论。税务机关通常会关注信息不一致、资金来源不清、未申报收入、未备案出境等风险点。',
+  },
+];
+
+const flow = [
+  ['BVI公司账户信息', '中国税务局'],
+  ['税务局关注点', '是否完税、是否备案、是否有逃税嫌疑'],
+  ['合规用户', '信息交换不会自动触发负面处理'],
+];
+---
+
+<BaseLayout title="与中国法律衔接 | BVI 2.0 | BVI.vg" description="BVI架构与中国法律不是对立的。合规的BVI架构，可以在中国外汇、税务和CRS信息交换框架下正常运行。">
+  <div class="max-w-(--content-max-width) mx-auto px-6 py-10">
+    <nav aria-label="面包屑" class="mb-6">
+      <ol class="flex items-center gap-1.5 text-sm font-sans text-text-muted">
+        <li><a href="/" class="hover:text-primary transition-colors">首页</a></li>
+        <li aria-hidden="true"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li><a href="/bvi-2-0/" class="hover:text-primary transition-colors">BVI 2.0</a></li>
+        <li aria-hidden="true"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li class="text-text-main">与中国法律衔接</li>
+      </ol>
+    </nav>
+
+    <article class="prose">
+      <span class="inline-block px-3 py-1 rounded-full text-xs font-sans font-medium bg-secondary/10 text-secondary-dark mb-4">BVI 2.0 · P3</span>
+      <h1>与中国法律衔接</h1>
+      <p class="lead">BVI架构与中国法律不是对立的。合规的BVI架构，可以在中国外汇、税务和跨境信息交换框架下正常运行。</p>
+
+      <div class="not-prose rounded-2xl border border-border-main bg-bg-elevated p-6 md:p-8 my-8">
+        <p class="font-sans text-sm font-semibold text-secondary-dark mb-3">核心论点</p>
+        <h2 class="font-sans text-2xl font-bold text-primary mb-4">关键不是有没有BVI，而是资金、税务、身份和备案是否一致。</h2>
+        <p class="text-text-muted leading-relaxed mb-0">BVI 2.0时代，中国用户面对的主要问题不是“能不能用BVI”，而是能不能把境内出境路径、税务居民身份、最终受益人登记、CRS信息交换和银行KYC形成一致闭环。</p>
+      </div>
+
+      <h2>中国监管框架概览</h2>
+      <div class="not-prose grid gap-5 md:grid-cols-3 my-8">
+        {frameworks.map((group) => (
+          <section class="rounded-xl border border-border-main bg-bg-elevated p-5">
+            <h3 class="font-sans text-lg font-bold text-primary mb-4">{group.title}</h3>
+            <ul class="m-0 p-0 list-none space-y-2">
+              {group.items.map((item) => (
+                <li class="flex gap-2 text-sm text-text-muted">
+                  <span class="text-secondary-dark">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+
+      <h2>BVI公司与中国税务的关系</h2>
+      <p>BVI公司本身是境外法人，但中国居民股东、实际控制人、资金来源和管理决策可能把中国税务规则带入架构判断。</p>
+      <ul>
+        <li><strong>CFC规则：</strong>中国股东控制BVI公司，BVI利润可能视同分配征税。</li>
+        <li><strong>豁免与抗辩：</strong>CFC规则存在豁免和具体适用边界，例如上市公司、实质性经营活动等因素。</li>
+        <li><strong>家办合规路径：</strong>通过香港运营层、清晰资金来源、完整账务和合理商业目的，强化架构解释力。</li>
+      </ul>
+
+      <h2>ODI / 37号文与BVI架构</h2>
+      <div class="not-prose rounded-xl border border-border-main bg-bg-elevated p-6 my-8">
+        <div class="grid gap-4 md:grid-cols-3">
+          <div class="rounded-lg bg-bg-muted p-4">
+            <p class="font-sans text-sm font-semibold text-text-main mb-2">境内资金出境</p>
+            <p class="text-sm text-text-muted leading-relaxed mb-0">企业出境投资通常需要关注ODI备案，个人特殊目的公司安排需要关注37号文登记。</p>
+          </div>
+          <div class="rounded-lg bg-bg-muted p-4">
+            <p class="font-sans text-sm font-semibold text-text-main mb-2">BVI作为第一层控股实体</p>
+            <p class="text-sm text-text-muted leading-relaxed mb-0">在合规出境路径中，BVI常作为境外控股层的起点，用于持股、隔离和后续资产配置。</p>
+          </div>
+          <div class="rounded-lg bg-secondary/10 p-4">
+            <p class="font-sans text-sm font-semibold text-text-main mb-2">未备案风险</p>
+            <p class="text-sm text-text-muted leading-relaxed mb-0">未备案资金出境在CRS交换后更容易形成信息不一致风险。</p>
+          </div>
+        </div>
+      </div>
+
+      <h2>CRS信息交换后的中国税务处理</h2>
+      <div class="overflow-x-auto">
+        <table>
+          <thead>
+            <tr>
+              <th>环节</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            {flow.map(([step, description]) => (
+              <tr>
+                <td><strong>{step}</strong></td>
+                <td>{description}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h2>常见中国法律问题FAQ</h2>
+      <div class="not-prose space-y-4 my-8">
+        {faqs.map((faq) => (
+          <details class="rounded-xl border border-border-main bg-bg-elevated p-5">
+            <summary class="cursor-pointer font-sans font-semibold text-text-main">{faq.q}</summary>
+            <p class="text-sm text-text-muted leading-relaxed mt-4 mb-0">{faq.a}</p>
+          </details>
+        ))}
+      </div>
+
+      <h2>家办合规底线</h2>
+      <blockquote>
+        中国法律衔接部分的核心不是回避监管，而是让BVI架构在中国外汇、税务和CRS信息交换框架下形成可解释、可证明、可维护的闭环。
+      </blockquote>
+    </article>
+
+    <aside class="mt-12 p-5 rounded-lg bg-bg-muted border border-border-main text-sm text-text-muted" role="note">
+      <p class="font-sans font-semibold text-text-main mb-2">免责声明</p>
+      <p>本知识库提供通用信息，不构成法律意见。具体架构搭建请咨询BVI持牌律师、中国税务律师及外汇合规顾问。</p>
+    </aside>
+  </div>
+</BaseLayout>
