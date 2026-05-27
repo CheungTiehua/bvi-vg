@@ -22,7 +22,7 @@ const sections = [
         <a
           href={section.href}
           aria-current={isCurrent ? 'page' : undefined}
-          class={`inline-flex rounded-full px-3 py-1.5 text-sm font-sans transition-colors ${isCurrent ? 'bg-primary text-white' : 'bg-bg-muted text-text-muted hover:bg-secondary/10 hover:text-primary'}`}
+          class={`inline-flex rounded-full border px-3 py-1.5 text-sm font-sans font-medium no-underline transition-colors ${isCurrent ? 'border-secondary bg-secondary/15 text-primary shadow-sm' : 'border-transparent bg-bg-muted text-text-muted hover:border-secondary/40 hover:bg-secondary/10 hover:text-primary'}`}
         >
           {section.label}
         </a>
