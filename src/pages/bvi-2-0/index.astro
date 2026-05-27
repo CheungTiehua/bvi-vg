@@ -26,6 +26,12 @@ const pillars = [
     href: '/bvi-2-0/myths/',
     description: '针对市场上的恐慌言论，逐条拆解 BVI 2.0 的事实与边界。',
   },
+  {
+    title: '与中国法律衔接',
+    eyebrow: 'CHINA',
+    href: '/bvi-2-0/china-connection/',
+    description: '外汇、税务、CFC、37号文与 CRS 信息交换下的中国法律衔接。',
+  },
 ];
 
 const comparisons = [
@@ -45,7 +51,7 @@ const comparisons = [
       <h1 class="font-sans text-5xl md:text-7xl font-bold leading-tight mb-6">合规时代的 BVI</h1>
       <p class="max-w-3xl text-2xl md:text-3xl leading-relaxed text-white/90 mb-10">不再是“藏钱”，而是“留钱”。</p>
       <a href="#pillars" class="inline-flex items-center rounded-md bg-secondary px-6 py-3 font-sans text-base font-semibold text-white hover:bg-secondary-light transition-colors">
-        了解 BVI 2.0 的四大支柱
+        了解 BVI 2.0 的核心专题
         <svg class="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
       </a>
     </div>
@@ -89,7 +95,7 @@ const comparisons = [
         </table>
       </div>
 
-      <h2 id="pillars">四大支柱</h2>
+      <h2 id="pillars">核心专题导航</h2>
       <div class="not-prose grid grid-cols-1 md:grid-cols-2 gap-5 my-8">
         {pillars.map((pillar) => (
           <a href={pillar.href} class="group block rounded-xl border border-border-main bg-bg-elevated p-6 hover:border-secondary hover:shadow-md transition-all">
