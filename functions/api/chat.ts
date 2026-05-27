@@ -1,0 +1,157 @@
+type ChatRole = 'system' | 'user' | 'assistant';
+
+type ChatMessage = {
+  role: ChatRole;
+  content: string;
+};
+
+type Env = {
+  DEEPSEEK_API_KEY?: string;
+  DEEPSEEK_MODEL?: string;
+  TAVILY_API_KEY?: string;
+};
+
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+};
+
+const SITE_CONTEXT = `你是 BVI.vg 的中文知识库助手。你的任务是帮助用户理解 BVI 商业公司、VISTA 信托、PTC、SPC、经济实质、CRS 2.0、UBO、FATF、B+H 架构，以及 BVI 与中国外汇/税务/合规框架的衔接。
+
+回答原则：
+1. 用中文回答，除非用户明确要求英文。
+2. 优先基于 BVI.vg 的知识库内容和 Tavily 检索结果回答。
+3. 不编造法律条文、生效日期或官方结论；不确定时明确说“不确定，需要核验官方来源”。
+4. 不提供个案法律、税务或投资意见；涉及具体行动时建议咨询 BVI 持牌律师、中国税务律师或外汇合规顾问。
+5. 回答要简洁、结构清楚、直接解决问题。`;
+
+function jsonResponse(body: Record<string, unknown>, status = 200) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      ...CORS_HEADERS,
+    },
+  });
+}
+
+function sanitizeMessages(input: unknown): ChatMessage[] {
+  if (!Array.isArray(input)) return [];
+
+  return input
+    .filter((item): item is ChatMessage => {
+      if (!item || typeof item !== 'object') return false;
+      const message = item as Partial<ChatMessage>;
+      return (
+        (message.role === 'user' || message.role === 'assistant') &&
+        typeof message.content === 'string' &&
+        message.content.trim().length > 0
+      );
+    })
+    .slice(-10)
+    .map((message) => ({
+      role: message.role,
+      content: message.content.slice(0, 2000),
+    }));
+}
+
+async function searchTavily(query: string, apiKey?: string) {
+  if (!apiKey || !query.trim()) return '';
+
+  try {
+    const response = await fetch('https://api.tavily.com/search', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        api_key: apiKey,
+        query: `site:bvi.vg ${query}`,
+        search_depth: 'basic',
+        max_results: 5,
+        include_answer: false,
+        include_raw_content: false,
+      }),
+    });
+
+    if (!response.ok) return '';
+
+    const data = await response.json() as {
+      results?: Array<{ title?: string; url?: string; content?: string }>;
+    };
+
+    const results = (data.results || [])
+      .slice(0, 5)
+      .map((item, index) => {
+        const title = item.title || 'Untitled';
+        const url = item.url || '';
+        const content = (item.content || '').replace(/\s+/g, ' ').slice(0, 700);
+        return `[${index + 1}] ${title}\n${url}\n${content}`;
+      })
+      .join('\n\n');
+
+    return results ? `\n\n以下是 Tavily 检索到的 BVI.vg 相关资料：\n${results}` : '';
+  } catch {
+    return '';
+  }
+}
+
+export async function onRequestOptions() {
+  return new Response(null, { status: 204, headers: CORS_HEADERS });
+}
+
+export async function onRequestPost(context: { request: Request; env: Env }) {
+  const { request, env } = context;
+
+  if (!env.DEEPSEEK_API_KEY) {
+    return jsonResponse({ error: 'DeepSeek API key is not configured.' }, 500);
+  }
+
+  let payload: { messages?: unknown };
+  try {
+    payload = await request.json();
+  } catch {
+    return jsonResponse({ error: 'Invalid JSON payload.' }, 400);
+  }
+
+  const messages = sanitizeMessages(payload.messages);
+  const latestUserMessage = [...messages].reverse().find((message) => message.role === 'user');
+
+  if (!latestUserMessage) {
+    return jsonResponse({ error: 'No user message provided.' }, 400);
+  }
+
+  const tavilyContext = await searchTavily(latestUserMessage.content, env.TAVILY_API_KEY);
+  const systemPrompt = `${SITE_CONTEXT}${tavilyContext}`;
+
+  const deepseekResponse = await fetch('https://api.deepseek.com/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${env.DEEPSEEK_API_KEY}`,
+    },
+    body: JSON.stringify({
+      model: env.DEEPSEEK_MODEL || 'deepseek-chat',
+      stream: true,
+      temperature: 0.3,
+      messages: [
+        { role: 'system', content: systemPrompt },
+        ...messages,
+      ],
+    }),
+  });
+
+  if (!deepseekResponse.ok || !deepseekResponse.body) {
+    const errorText = await deepseekResponse.text().catch(() => 'DeepSeek request failed.');
+    return jsonResponse({ error: errorText.slice(0, 500) }, deepseekResponse.status || 502);
+  }
+
+  return new Response(deepseekResponse.body, {
+    status: 200,
+    headers: {
+      'Content-Type': 'text/event-stream; charset=utf-8',
+      'Cache-Control': 'no-cache, no-transform',
+      Connection: 'keep-alive',
+      ...CORS_HEADERS,
+    },
+  });
+}
