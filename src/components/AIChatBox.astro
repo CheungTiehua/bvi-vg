@@ -102,7 +102,44 @@
       wrap.appendChild(bubble);
       messagesEl.appendChild(wrap);
       scrollToBottom();
-      return bubble;
+      return { wrap, bubble };
+    }
+
+    function renderSources(targetWrap, sources) {
+      if (!sources || !sources.length || !targetWrap) return;
+
+      const uniqueSources = [];
+      const seen = new Set();
+      sources.forEach((source) => {
+        if (!source || !source.url || seen.has(source.url)) return;
+        seen.add(source.url);
+        uniqueSources.push(source);
+      });
+
+      if (!uniqueSources.length) return;
+
+      const box = document.createElement('div');
+      box.className = 'mt-2 max-w-[86%] rounded-xl border border-border-main bg-bg-elevated px-3 py-2 text-xs text-text-muted';
+
+      const title = document.createElement('p');
+      title.className = 'mb-1 font-sans font-semibold text-primary';
+      title.textContent = '参考页面';
+      box.appendChild(title);
+
+      const list = document.createElement('div');
+      list.className = 'space-y-1';
+      uniqueSources.slice(0, 4).forEach((source) => {
+        const link = document.createElement('a');
+        link.href = source.url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.className = 'block break-words text-secondary-dark hover:text-primary';
+        link.textContent = source.title || source.url;
+        list.appendChild(link);
+      });
+      box.appendChild(list);
+      targetWrap.appendChild(box);
+      scrollToBottom();
     }
 
     function setLoading(next) {
@@ -121,8 +158,11 @@
       messages.push({ role: 'user', content });
       setLoading(true);
 
-      const assistantBubble = addBubble('assistant', '');
+      const assistantMessage = addBubble('assistant', '');
+      const assistantWrap = assistantMessage.wrap;
+      const assistantBubble = assistantMessage.bubble;
       let fullContent = '';
+      let pendingSources = [];
 
       try {
         const response = await fetch('/api/chat', {
@@ -156,6 +196,11 @@
             if (data === '[DONE]') continue;
             try {
               const parsed = JSON.parse(data);
+              if (parsed.type === 'sources' && Array.isArray(parsed.sources)) {
+                pendingSources = parsed.sources;
+                continue;
+              }
+
               const delta = parsed.choices && parsed.choices[0] && parsed.choices[0].delta && parsed.choices[0].delta.content;
               if (delta) {
                 fullContent += delta;
@@ -168,6 +213,7 @@
 
         if (!fullContent) fullContent = '我没有拿到有效回答。请换个问法再试。';
         assistantBubble.textContent = fullContent;
+        renderSources(assistantWrap, pendingSources);
         messages.push({ role: 'assistant', content: fullContent });
         messages = messages.slice(-10);
       } catch (error) {
