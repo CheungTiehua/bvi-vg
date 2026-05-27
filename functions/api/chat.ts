@@ -11,6 +11,11 @@ type Env = {
   TAVILY_API_KEY?: string;
 };
 
+type TavilySource = {
+  title: string;
+  url: string;
+};
+
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
@@ -58,8 +63,8 @@ function sanitizeMessages(input: unknown): ChatMessage[] {
     }));
 }
 
-async function searchTavily(query: string, apiKey?: string) {
-  if (!apiKey || !query.trim()) return '';
+async function searchTavily(query: string, apiKey?: string): Promise<{ context: string; sources: TavilySource[] }> {
+  if (!apiKey || !query.trim()) return { context: '', sources: [] };
 
   try {
     const response = await fetch('https://api.tavily.com/search', {
@@ -75,14 +80,22 @@ async function searchTavily(query: string, apiKey?: string) {
       }),
     });
 
-    if (!response.ok) return '';
+    if (!response.ok) return { context: '', sources: [] };
 
     const data = await response.json() as {
       results?: Array<{ title?: string; url?: string; content?: string }>;
     };
 
-    const results = (data.results || [])
-      .slice(0, 5)
+    const items = (data.results || []).slice(0, 5);
+
+    const sources = items
+      .filter((item) => Boolean(item.url))
+      .map((item) => ({
+        title: item.title || 'BVI.vg 参考页面',
+        url: item.url || '',
+      }));
+
+    const results = items
       .map((item, index) => {
         const title = item.title || 'Untitled';
         const url = item.url || '';
@@ -91,10 +104,17 @@ async function searchTavily(query: string, apiKey?: string) {
       })
       .join('\n\n');
 
-    return results ? `\n\n以下是 Tavily 检索到的 BVI.vg 相关资料：\n${results}` : '';
+    return {
+      context: results ? `\n\n以下是 Tavily 检索到的 BVI.vg 相关资料：\n${results}` : '',
+      sources,
+    };
   } catch {
-    return '';
+    return { context: '', sources: [] };
   }
+}
+
+function sourceFrame(sources: TavilySource[]) {
+  return `data: ${JSON.stringify({ type: 'sources', sources })}\n\n`;
 }
 
 export async function onRequestOptions() {
@@ -122,8 +142,8 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
     return jsonResponse({ error: 'No user message provided.' }, 400);
   }
 
-  const tavilyContext = await searchTavily(latestUserMessage.content, env.TAVILY_API_KEY);
-  const systemPrompt = `${SITE_CONTEXT}${tavilyContext}`;
+  const tavily = await searchTavily(latestUserMessage.content, env.TAVILY_API_KEY);
+  const systemPrompt = `${SITE_CONTEXT}${tavily.context}`;
 
   const deepseekResponse = await fetch('https://api.deepseek.com/chat/completions', {
     method: 'POST',
@@ -147,7 +167,27 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
     return jsonResponse({ error: errorText.slice(0, 500) }, deepseekResponse.status || 502);
   }
 
-  return new Response(deepseekResponse.body, {
+  const encoder = new TextEncoder();
+  const stream = new ReadableStream({
+    async start(controller) {
+      if (tavily.sources.length > 0) {
+        controller.enqueue(encoder.encode(sourceFrame(tavily.sources)));
+      }
+
+      const reader = deepseekResponse.body!.getReader();
+      try {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          controller.enqueue(value);
+        }
+      } finally {
+        controller.close();
+      }
+    },
+  });
+
+  return new Response(stream, {
     status: 200,
     headers: {
       'Content-Type': 'text/event-stream; charset=utf-8',
